@@ -3,7 +3,10 @@ package com.example.munge.app.activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import com.example.munge.app.R
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,16 +17,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 //
-//    fun clickButton(view: View) {
-//        val meh = arrayOf(1,2, "hej")
-//        val text = Toast.makeText(this, Arrays.toString(meh), Toast.LENGTH_SHORT)
-//        text.show()
-//    }
-
-
-    fun changeActivity() {
-        val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtra("keyIdentifier", "test")
-        startActivity(intent)
+    fun clickButton(view: View) {
+        val meh = arrayOf(1,2, "hej")
+        val text = Toast.makeText(this, Arrays.toString(meh), Toast.LENGTH_SHORT)
+        text.show()
     }
+
+
+//    fun changeActivity() {
+//        val intent = Intent(this, SecondActivity::class.java)
+//        intent.putExtra("keyIdentifier", "test")
+//        startActivity(intent)
+//    }
 }
