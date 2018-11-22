@@ -11,7 +11,7 @@
             android:text="Click Me"
             android:layout_width="88dp"
             android:layout_height="48dp"
-            android:id="@+id/clickMeButton" android:onClick="changeActivity"
+            android:id="@+id/clickMeButton" android:onClick="clickButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="92dp" android:layout_marginStart="164dp"/>
