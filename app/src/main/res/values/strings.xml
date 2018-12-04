@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name"></string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -73,9 +73,14 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-
     <!-- gps button -->
     <string name="gps_button">ImageButton</string>
     <string name="this_is_imagebutton">This is imageButton</string>
     <string name="image_button_clicked">You clicked imageButton</string>
+  
+    <string name="the">The</string>
+    <string name="bus">Bus</string>
+    <string name="journey_planner">Journey Planner</string>
+    <string name="depatures">Depatures</string>
+    <string name="catchText">Catch</string>
 </resources>
