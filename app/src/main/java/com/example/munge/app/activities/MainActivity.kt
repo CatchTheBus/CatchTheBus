@@ -5,14 +5,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.example.munge.app.R
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val INTENT_PREV_ACTIVITY = "prev_activity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,16 +22,23 @@ class MainActivity : AppCompatActivity() {
         //home navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        val button1 = findViewById<Button>(R.id.button1)
+        val journeyPlanner = findViewById<Button>(R.id.journey_planner)
+        val departures = findViewById<Button>(R.id.depatures)
 
-        button1.setOnClickListener { clickButton() }
+        journeyPlanner.setOnClickListener { changeToJourneyPlanner() }
+        departures.setOnClickListener { changeToDepartures() }
     }
 
+    private fun changeToJourneyPlanner() {
+        val intent = Intent(this, JourneyPlannerActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
+        startActivity(intent)
+    }
 
-    private fun clickButton() {
-        val meh = arrayOf(1,2, "hej")
-        val text = Toast.makeText(this, Arrays.toString(meh), Toast.LENGTH_SHORT)
-        text.show()
+    private fun changeToDepartures() {
+        val intent = Intent(this, DeparturesActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
+        startActivity(intent)
     }
 
     //setting menu in action bar
@@ -44,16 +51,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
             // User chose the "Print" item
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-//            Toast.makeText(this,"Print action",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Settings",Toast.LENGTH_LONG).show()
             true
         }
-       /* android.R.id.home ->{
-            Toast.makeText(this,"Home action",Toast.LENGTH_LONG).show()
-            true
-        }*/
-
         else -> {
             // If we got here, the user's action was not recognized.
             // Invoke the superclass to handle it.
