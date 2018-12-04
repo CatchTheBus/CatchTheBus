@@ -4,7 +4,7 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             tools:context=".activities.Page8Activity"
+                                             tools:context=".activities.DeparturesActivity"
                                              android:background="@android:color/white">
 
     <TextView
@@ -60,17 +60,20 @@
                         android:selectAllOnFocus="false"
                         android:layout_weight="0.75"/>
             </android.support.design.widget.TextInputLayout>
+
             <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_height="25dp"
-                    android:layout_width="20dp"
-                    android:contentDescription="@string/gps_button"
-                    app:srcCompat="@mipmap/baseline_my_location_black_18dp"
-                    tools:layout_editor_absoluteY="314dp" tools:layout_editor_absoluteX="109dp"
-                    android:layout_marginStart="20dp"
-                    android:background="@android:color/white"
-                    android:layout_weight="0.25"
-                    android:scaleType="fitXY" android:layout_marginTop="20dp"/>
+                android:id="@+id/imageButton"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.25"
+                android:background="@android:color/white"
+                android:contentDescription="@string/gps_button"
+                android:scaleType="fitXY"
+                app:srcCompat="@mipmap/baseline_my_location_black_18dp"
+                tools:layout_editor_absoluteX="109dp"
+                tools:layout_editor_absoluteY="314dp" />
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
