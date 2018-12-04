@@ -42,7 +42,10 @@
                     android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="200dp"/>
         </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,8 +57,20 @@
                         android:hint="From"
                         android:backgroundTintMode="multiply" android:textColor="@android:color/black"
                         android:textColorLink="@android:color/black" android:inputType="text"
-                        android:selectAllOnFocus="false"/>
+                        android:selectAllOnFocus="false"
+                        android:layout_weight="0.75"/>
             </android.support.design.widget.TextInputLayout>
+            <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:contentDescription="@string/gps_button"
+                    app:srcCompat="@mipmap/baseline_my_location_black_18dp"
+                    tools:layout_editor_absoluteY="314dp" tools:layout_editor_absoluteX="109dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@android:color/white"
+                    android:layout_weight="0.25"
+                    android:scaleType="fitXY" android:layout_marginTop="20dp"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <android.support.design.widget.TextInputLayout
