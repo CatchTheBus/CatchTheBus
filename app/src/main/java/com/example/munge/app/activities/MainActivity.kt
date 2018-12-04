@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import com.example.munge.app.R
 import java.util.*
@@ -19,7 +20,18 @@ class MainActivity : AppCompatActivity() {
         //setting toolbar
         setSupportActionBar(findViewById(R.id.toolbar))
         //home navigation
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        val button1 = findViewById<Button>(R.id.button1)
+
+        button1.setOnClickListener { clickButton() }
+    }
+
+
+    private fun clickButton() {
+        val meh = arrayOf(1,2, "hej")
+        val text = Toast.makeText(this, Arrays.toString(meh), Toast.LENGTH_SHORT)
+        text.show()
     }
 
     //setting menu in action bar
@@ -37,10 +49,10 @@ class MainActivity : AppCompatActivity() {
 //            Toast.makeText(this,"Print action",Toast.LENGTH_LONG).show()
             true
         }
-        android.R.id.home ->{
+       /* android.R.id.home ->{
             Toast.makeText(this,"Home action",Toast.LENGTH_LONG).show()
             true
-        }
+        }*/
 
         else -> {
             // If we got here, the user's action was not recognized.
