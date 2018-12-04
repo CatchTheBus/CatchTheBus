@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             tools:context=".activities.MainActivity">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.MainActivity"
+        android:background="@android:color/white">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -15,7 +17,147 @@
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+    >
     </android.support.v7.widget.Toolbar>
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="504dp"
+                 android:layout_gravity="center"
+                 app:layout_constraintTop_toBottomOf="@+id/toolbar" app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3" android:layout_marginTop="25dp">
+
+            <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+
+            <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" android:text="@string/catchText" android:textAlignment="center"
+                    android:textSize="36sp" android:textColor="@android:color/black"
+                    android:typeface="sans" android:textStyle="bold"/>
+
+            <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3">
+
+            <TextView
+                    android:id="@+id/TextView04"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+            <TextView
+                    android:id="@+id/TextView05"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="@string/the" android:textAlignment="center"
+                    android:textSize="36sp" android:textColor="@android:color/black" android:textStyle="bold"
+                    android:typeface="sans"/>
+
+            <TextView
+                    android:id="@+id/TextView06"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3">
+
+            <TextView
+                    android:id="@+id/TextView07"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+            <TextView
+                    android:id="@+id/TextView08"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="@string/bus" android:textAlignment="center"
+                    android:textSize="36sp" android:textColor="@android:color/black" android:textStyle="bold"
+                    android:typeface="sans"/>
+
+            <TextView
+                    android:id="@+id/TextView09"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3" android:layout_marginTop="20dp">
+
+            <TextView
+                    android:id="@+id/TextView10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+
+            <Button
+                    android:text="@string/journey_planner"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_height="75dp" android:id="@+id/button1" android:textAlignment="center"
+                    android:textSize="18sp" android:background="@android:color/darker_gray"
+                    android:textAllCaps="false"/>
+            <TextView
+                    android:id="@+id/TextView11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3">
+
+            <TextView
+                    android:id="@+id/TextView12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+
+            <Button
+                    android:text="@string/depatures"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_height="75dp" android:textAlignment="center"
+                    android:layout_marginTop="15dp"
+                    android:textSize="18sp" android:id="@+id/button2"
+                    android:background="@android:color/darker_gray"
+                    android:textAllCaps="false"/>
+            <TextView
+                    android:id="@+id/TextView13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+
+        </TableRow>
+
+    </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
