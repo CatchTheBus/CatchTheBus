@@ -22,6 +22,9 @@
         </activity>
         <activity android:name=".activities.Page1Activity">
         </activity>
+        <!-- page 8 activity-->
+        <activity android:name=".activities.Page8Activity">
+        </activity>
     </application>
 
 </manifest>
