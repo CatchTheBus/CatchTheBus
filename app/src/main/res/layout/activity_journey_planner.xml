@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             tools:context=".activities.JourneyPlannerActivity"
-                                             android:background="@android:color/white">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.JourneyPlannerActivity"
+        android:background="@android:color/white">
 
     <TextView
             android:text="Journey Planner"
@@ -65,12 +66,13 @@
                     android:layout_height="25dp"
                     android:layout_width="20dp"
                     android:contentDescription="@string/gps_button"
-                    app:srcCompat="@mipmap/baseline_my_location_black_18dp"
+                    app:srcCompat="@mipmap/ic_gps"
                     tools:layout_editor_absoluteY="314dp" tools:layout_editor_absoluteX="109dp"
                     android:layout_marginStart="20dp"
                     android:background="@android:color/white"
                     android:layout_weight="0.25"
-                    android:scaleType="fitXY" android:layout_marginTop="20dp"/>
+                    android:scaleType="fitCenter" android:layout_marginTop="20dp" android:visibility="visible"
+                    android:elevation="0dp"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <android.support.design.widget.TextInputLayout
