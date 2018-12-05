@@ -104,7 +104,7 @@
             <Button
                     android:text="Search"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/button4"
+                    android:layout_height="wrap_content" android:id="@+id/search_journey"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:textColorLink="@android:color/holo_blue_light"
