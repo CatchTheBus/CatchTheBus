@@ -22,8 +22,13 @@
         </activity>
         <activity android:name=".activities.JourneyPlannerActivity">
         </activity>
-        <!-- page 8 activity-->
         <activity android:name=".activities.DeparturesActivity">
+        </activity>
+        <activity android:name=".activities.DestinationActivity">
+        </activity>
+        <activity android:name=".activities.TimeActivity">
+        </activity>
+        <activity android:name=".activities.CountdownActivity">
         </activity>
     </application>
 
