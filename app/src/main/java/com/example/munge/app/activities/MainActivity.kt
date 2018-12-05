@@ -12,7 +12,7 @@ import com.example.munge.app.R
 
 class MainActivity : AppCompatActivity() {
 
-    private val INTENT_PREV_ACTIVITY = "prev_activity"
+//    private val INTENT_PREV_ACTIVITY = "prev_activity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +31,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeToJourneyPlanner() {
         val intent = Intent(this, JourneyPlannerActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
+//        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
         startActivity(intent)
     }
 
     private fun changeToDepartures() {
         val intent = Intent(this, DeparturesActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
+//        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
         startActivity(intent)
     }
 

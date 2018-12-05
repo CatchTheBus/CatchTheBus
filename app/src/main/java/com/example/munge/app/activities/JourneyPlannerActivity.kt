@@ -5,11 +5,15 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import com.example.munge.app.R
 
 
 class JourneyPlannerActivity : AppCompatActivity() {
+
+    private val INTENT_PREV_ACTIVITY = "prev_activity"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +22,19 @@ class JourneyPlannerActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         //home navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val searchButton = findViewById<Button>(R.id.search_journey)
+
+        searchButton.setOnClickListener { changeToDestinations() }
     }
+
+
+    private fun changeToDestinations() {
+        val intent = Intent(this, DestinationActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
+        startActivity(intent)
+    }
+
 
 
     //setting menu in action bar
@@ -35,9 +51,9 @@ class JourneyPlannerActivity : AppCompatActivity() {
             true
         }
         android.R.id.home ->{
-            val activityToStart = intent.extras["prev_activity"].toString().split(" ").last()
-            val c = Class.forName(activityToStart)
-            val intent = Intent(this, c)
+//            val activityToStart = intent.extras["prev_activity"].toString().split(" ").last()
+//            val c = Class.forName(activityToStart)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             true
          }
