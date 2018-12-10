@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+//import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import com.example.munge.app.R
@@ -21,7 +22,16 @@ class DeparturesActivity : AppCompatActivity() {
         val imageButton = findViewById<ImageButton>(R.id.imageButton)
         imageButton?.setOnClickListener { Toast.makeText(this@DeparturesActivity, R.string.image_button_clicked, Toast.LENGTH_SHORT).show()}
 
+
+        //imageButton?.setOnClickListener(object : View.OnClickListener() {
+        //    override fun onClick(v: View) {
+        //        // Code here executes on main thread after user presses button
+
+         //   }
+        //})
+
         setSupportActionBar(findViewById(R.id.toolbar))
+
         //home navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
