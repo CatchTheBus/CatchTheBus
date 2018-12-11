@@ -59,7 +59,7 @@
                         android:hint="From"
                         android:backgroundTintMode="multiply" android:textColor="@android:color/black"
                         android:textColorLink="@android:color/black" android:inputType="text"
-                        android:selectAllOnFocus="false"/>
+                        android:selectAllOnFocus="false" android:id="@+id/search_from"/>
             </android.support.design.widget.TextInputLayout>
 
             <ImageButton
