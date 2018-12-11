@@ -12,7 +12,7 @@ import com.example.munge.app.R
 
 class MainActivity : AppCompatActivity() {
 
-    private val INTENT_PREV_ACTIVITY = "prev_activity"
+    val CONNECTON_TIMEOUT_MILLISECONDS = 60000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +27,19 @@ class MainActivity : AppCompatActivity() {
 
         journeyPlanner.setOnClickListener { changeToJourneyPlanner() }
         departures.setOnClickListener { changeToDepartures() }
+
+        val url = "http://www.labs.skanetrafiken.se/v2.2/querypage.asp?inpPointFr=lund&inpPointTo=ystad"
+        GetAPIData(this).execute(url)
     }
+
 
     private fun changeToJourneyPlanner() {
         val intent = Intent(this, JourneyPlannerActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
         startActivity(intent)
     }
 
     private fun changeToDepartures() {
         val intent = Intent(this, DeparturesActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
         startActivity(intent)
     }
 
