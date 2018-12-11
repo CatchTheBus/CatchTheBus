@@ -15,6 +15,7 @@ class AppSettingsActivity : AppCompatPreferenceActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        /*
         // Set an checked change listener for switch button
         switch_button.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
@@ -22,7 +23,7 @@ class AppSettingsActivity : AppCompatPreferenceActivity() {
                 val text_view.text = "Switch on"
 
                 // Change the app background color
-                root_layout.setBackgroundColor(Color.GREEN)
+                root_layout.setBackgroundColor(Color.LTGRAY)
             } else {
                 // The switch is disabled
                 val text_view.text = "Switch off"
@@ -31,9 +32,10 @@ class AppSettingsActivity : AppCompatPreferenceActivity() {
                 root_layout.setBackgroundColor(Color.LTGRAY)
             }
         }
+        */
 
-
-        // Set a click listener for root layout object
+        /*
+        // Set a click listener for root layout object switch-button
         root_layout.setOnClickListener{
             // Get the switch button state programmatically
             if(switch_button.isChecked){
@@ -51,6 +53,7 @@ class AppSettingsActivity : AppCompatPreferenceActivity() {
                 root_layout.setBackgroundColor(Color.LTGRAY)
             }
         }
+        */
 
 
         // Set a click listener for the button widget
