@@ -6,12 +6,16 @@ import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.util.Log.*
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import com.example.munge.app.R
 import kotlinx.android.synthetic.main.activity_destination.*
+import org.json.JSONArray
+import org.json.JSONObject
+import org.w3c.dom.Text
 
 class DestinationActivity : AppCompatActivity() {
 
@@ -23,8 +27,61 @@ class DestinationActivity : AppCompatActivity() {
         //home navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Set header to location name
-        findViewById<TextView>(R.id.location).text = intent.extras["search"].toString()
+
+        if (intent.extras["prev_activity"].toString() == "journey") {
+
+            val searchFrom = intent.extras["search_from"].toString()
+            val searchTo = intent.extras["search_to"].toString()
+
+            findViewById<TextView>(R.id.location).text = searchFrom
+
+            val url = "http://www.labs.skanetrafiken.se/v2.2/querypage.asp?inpPointFr=$searchFrom&inpPointTo=$searchTo"
+            val data = GetAPIData(findViewById(R.id.testField)).execute(url).get().getJSONObject(0)
+
+            Log.d("type", data::class.toString())
+
+
+            val start = data.getJSONArray("start")
+            val end = data.getJSONArray("end")
+
+            var startId = 0
+            var endId = 0
+
+//
+            for (i in 0..(start.length() - 1)) {
+                val item = start.getJSONObject(i)
+
+                if (item["Name"] == searchFrom) {
+                    startId = item["Id"] as Int
+                }
+            }
+
+            for (i in 0..(end.length() - 1)) {
+                val item = end.getJSONObject(i)
+
+                if (item["Name"] == searchTo) {
+                    endId = item["Id"] as Int
+                }
+            }
+
+            Log.d("type", start.toString())
+            Log.d("type", end.toString())
+
+
+            Log.d("id", startId.toString())
+            Log.d("id", endId.toString())
+
+//
+//            for (i in 0..(start.length() - 1)) {
+//                val item = start.getJSONObject(i)
+//            }
+
+
+
+        } else {
+            // Set header to location name
+            findViewById<TextView>(R.id.location).text = intent.extras["search"].toString()
+        }
 
         addBuses()
         addDestinations()

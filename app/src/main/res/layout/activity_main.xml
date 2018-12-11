@@ -166,13 +166,6 @@
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="309dp"
-                    android:layout_height="117dp"
-                    android:id="@+id/bla"
-                    tools:layout_editor_absoluteY="419dp" tools:layout_editor_absoluteX="49dp"
-                    android:textColor="@android:color/black"/>
         </TableRow>
 
     </TableLayout>

@@ -30,16 +30,27 @@ class DeparturesActivity : AppCompatActivity() {
         //home navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
+
+
+
         val searchButton = findViewById<Button>(R.id.search_departure)
 
         searchButton.setOnClickListener { changeToDestinations() }
+
     }
 
     private fun changeToDestinations() {
-        val intent = Intent(this, DestinationActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, "departure")
-        intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
-        startActivity(intent)
+        val formInput = findViewById<TextInputEditText>(R.id.search_from).text.toString()
+
+        if (formInput.isNotEmpty()) {
+            val intent = Intent(this, DestinationActivity::class.java)
+            intent.putExtra(INTENT_PREV_ACTIVITY, "departure")
+            intent.putExtra(INTENT_SEARCH, formInput)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "From cannot be empty", Toast.LENGTH_LONG).show()
+        }
     }
 
     //setting menu in action bar

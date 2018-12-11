@@ -7,15 +7,20 @@ import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import com.example.munge.app.R
+import android.widget.ArrayAdapter
+
+
 
 
 class JourneyPlannerActivity : AppCompatActivity() {
 
     private val INTENT_PREV_ACTIVITY = "prev_activity"
-    private val INTENT_SEARCH = "search"
+    private val INTENT_SEARCH_FROM = "search_from"
+    private val INTENT_SEARCH_TO = "search_to"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +33,29 @@ class JourneyPlannerActivity : AppCompatActivity() {
         val searchButton = findViewById<Button>(R.id.search_journey)
 
         searchButton.setOnClickListener { changeToDestinations() }
+
+//        val adapter = ArrayAdapter<String>(this,
+//                android.R.layout.activity_list_item, COUNTRIES)
+//        findViewById<AutoCompleteTextView>(R.id.search_from).setAdapter<ArrayAdapter<String>>(adapter)
+
     }
+
+//    private val COUNTRIES = arrayOf("Belgium", "France", "Italy", "Germany", "Spain")
 
 
     private fun changeToDestinations() {
-        val intent = Intent(this, DestinationActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
-        intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
-        startActivity(intent)
+        val formInputFrom = findViewById<AutoCompleteTextView>(R.id.search_from).text.toString()
+        val formInputTo = findViewById<AutoCompleteTextView>(R.id.search_to).text.toString()
+
+        if (formInputFrom.isNotEmpty() && formInputTo.isNotEmpty()) {
+            val intent = Intent(this, DestinationActivity::class.java)
+            intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
+            intent.putExtra(INTENT_SEARCH_FROM,  formInputFrom)
+            intent.putExtra(INTENT_SEARCH_TO,  formInputTo)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "From and To cannot be empty", Toast.LENGTH_LONG).show()
+        }
     }
 
 
