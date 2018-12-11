@@ -3,6 +3,8 @@ package com.example.munge.app.activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
+import android.support.design.widget.TextInputLayout
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -13,7 +15,7 @@ import com.example.munge.app.R
 class JourneyPlannerActivity : AppCompatActivity() {
 
     private val INTENT_PREV_ACTIVITY = "prev_activity"
-
+    private val INTENT_SEARCH = "search"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
     private fun changeToDestinations() {
         val intent = Intent(this, DestinationActivity::class.java)
         intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
+        intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
         startActivity(intent)
     }
 

@@ -25,7 +25,8 @@
                  android:layout_height="504dp"
                  android:layout_gravity="center"
                  app:layout_constraintTop_toBottomOf="@+id/toolbar" app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0">
+                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                 android:id="@+id/tableLayout">
 
         <TableRow
                 android:layout_width="match_parent"
@@ -117,15 +118,15 @@
                     android:layout_weight="0.5"/>
 
             <Button
-                android:id="@+id/journey_planner"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:layout_weight="2"
-                android:background="@android:color/darker_gray"
-                android:text="@string/journey_planner"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="18sp" />
+                    android:id="@+id/journey_planner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp"
+                    android:layout_weight="2"
+                    android:background="@android:color/darker_gray"
+                    android:text="@string/journey_planner"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"/>
             <TextView
                     android:id="@+id/TextView11"
                     android:layout_width="0dp"
@@ -145,22 +146,33 @@
                     android:layout_weight="0.5"/>
 
             <Button
-                android:id="@+id/depatures"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="2"
-                android:background="@android:color/darker_gray"
-                android:text="@string/depatures"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="18sp" />
+                    android:id="@+id/depatures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:background="@android:color/darker_gray"
+                    android:text="@string/depatures"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"/>
             <TextView
                     android:id="@+id/TextView13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"/>
 
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="309dp"
+                    android:layout_height="117dp"
+                    android:id="@+id/bla"
+                    tools:layout_editor_absoluteY="419dp" tools:layout_editor_absoluteX="49dp"
+                    android:textColor="@android:color/black"/>
         </TableRow>
 
     </TableLayout>
