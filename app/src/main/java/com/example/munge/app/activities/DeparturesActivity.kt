@@ -1,11 +1,11 @@
 package com.example.munge.app.activities
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 //import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
@@ -20,15 +20,19 @@ class DeparturesActivity : AppCompatActivity() {
 
         //gps button
         val imageButton = findViewById<ImageButton>(R.id.imageButton)
-        imageButton?.setOnClickListener { Toast.makeText(this@DeparturesActivity, R.string.image_button_clicked, Toast.LENGTH_SHORT).show()}
+        //var gps = GpsActivity::mLocation.toString()
+        imageButton?.setOnClickListener { Toast.makeText(this@DeparturesActivity, R.string.gps_button, Toast.LENGTH_SHORT).show()}
+        /*
+        imageButton?.setOnClickListener(object : View.OnClickListener() {
+            override fun onClick(v: View) {
+                // Code here executes on main thread after user presses button
+                var gps = GpsActivity::mLocation
+                Toast.makeText(this@DeparturesActivity, gps, Toast.LENGTH_SHORT).show()
 
 
-        //imageButton?.setOnClickListener(object : View.OnClickListener() {
-        //    override fun onClick(v: View) {
-        //        // Code here executes on main thread after user presses button
-
-         //   }
-        //})
+            }
+        })
+        */
 
         setSupportActionBar(findViewById(R.id.toolbar))
 

@@ -1,5 +1,6 @@
 package com.example.munge.app.activities
 
+
 import android.Manifest
 import android.content.Context
 import android.content.DialogInterface
@@ -33,7 +34,7 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
     lateinit var mLocation: Location
     private var mLocationRequest: LocationRequest? = null
     private val listener: com.google.android.gms.location.LocationListener? = null
-    private val UPDATE_INTERVAL = (2 * 1000).toLong()  /* 10 secs */
+    //private val UPDATE_INTERVAL = (2 * 1000).toLong()  /* 10 secs */
     private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
 
     lateinit var locationManager: LocationManager
@@ -42,14 +43,14 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
 
     override fun onStart() {
         super.onStart()
-        mGoogleApiClient.connect()
-        Log.d("hej", "munge")
-        /*
+       // mGoogleApiClient.connect()
+       // Log.d("hej", "munge")
+
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect()
             Log.d("hej", "munge")
 
-        }*/
+        }
     }
 
     override fun onStop() {
@@ -71,15 +72,12 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
 
     override fun onLocationChanged(location: Location) {
 
-
         val msg = "Updated Location: Latitude " + location.longitude.toString() + location.longitude
         txt_latitude.text = location.latitude.toString()
         txt_longitude.text = location.longitude.toString()
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
-
     }
-
 
     override fun onConnected(p0: Bundle?) {
 
@@ -110,7 +108,7 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
-        setContentView(R.layout.activity_departures)
+        //setContentView(R.layout.activity_departures)
 
         MultiDex.install(this)
 
@@ -151,6 +149,9 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
     }
     */
 
+
+
+
     /*
     protected fun startLocationUpdates() {
 
@@ -165,4 +166,122 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
                 mLocationCallback, this)
     }
     */
+
 }
+
+/*
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.location.Location
+import android.location.LocationManager
+import android.location.LocationManager.*
+import android.os.Bundle
+import android.provider.Settings
+import android.support.v7.app.AlertDialog
+import com.assignment.interfaces.Callback
+import com.example.munge.app.R
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.OnSuccessListener
+import kotlinx.android.synthetic.main.activity_main.*
+
+class LocationGps(private var pActivity: Activity) :
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener {
+
+
+    lateinit var mGoogleApiClient: GoogleApiClient
+    private lateinit var mLocation: Location
+    private var  mLocationManager: LocationManager? = null
+    private var mLocationRequest: LocationRequest? = null
+    private val sUINTERVAL = (2 * 1000).toLong()  /* 10 secs */
+    private val sFINTERVAL: Long = 2000 /* 2 sec */
+    private lateinit var locationManager: LocationManager
+
+// Code for make call back using interface from utility to activity       private var pCallback: Callback = MainActivity()
+
+    override fun onLocationChanged(location: Location) {
+//Call the function of interface define in Activity i.e MainActivity
+        pCallback.updateUi(location)
+    }
+
+    override fun onConnectionSuspended(p0: Int) {
+        mGoogleApiClient.connect()
+    }
+
+    override fun onConnectionFailed(connectionResult: ConnectionResult) {
+        pActivity.location.text = connectionResult.errorMessage.toString()
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onConnected(pLocationChanged: Bundle?) {
+
+        startLocationUpdates()
+        val fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(pActivity)
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+            OnSuccessListener<Location> { location ->
+                if (location != null) {
+                    mLocation = location
+                    pCallback.updateUi(mLocation)
+                }
+            }
+        }
+    }
+
+    fun initLocation() {
+        mGoogleApiClient = GoogleApiClient.Builder(pActivity).apply {
+            addConnectionCallbacks(this@LocationGps)
+            addConnectionCallbacks(this@LocationGps)
+            addApi(LocationServices.API)
+        }.build()
+
+        mLocationManager = pActivity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        checkLocation()
+    }
+
+    private fun checkLocation(): Boolean {
+        if (!isLocationEnabled()){
+            showAlert(pActivity.getString(R.string.location_title),  pActivity.getString(R.string.location_message))
+            return isLocationEnabled()
+        }
+
+        private fun isLocationEnabled(): Boolean {
+
+            locationManager = pActivity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+            return locationManager.isProviderEnabled
+            (GPS_PROVIDER)||locationManager.isProviderEnabled(NETWORK_PROVIDER)
+
+        }
+
+        private fun showAlert(pTitle: String, pMessage: String) {
+            val dialog = AlertDialog.Builder(pActivity)
+            dialog.apply {
+                setTitle(pTitle)
+                setMessage(pMessage)
+                setPositiveButton(pActivity.getString(R.string.location_settings),
+                        { _, _ ->
+                            val myIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                            pActivity.startActivity(myIntent)
+                        })
+            }.show()
+        }
+
+        @SuppressLint("MissingPermission")
+        private fun startLocationUpdates() {
+            mLocationRequest = LocationRequest.create().apply
+            {
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                interval = sUINTERVAL
+                fastestInterval = sFINTERVAL
+            }        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this)
+        }
+    }
+*/
