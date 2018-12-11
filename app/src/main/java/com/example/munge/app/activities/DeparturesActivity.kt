@@ -3,6 +3,7 @@ package com.example.munge.app.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -15,12 +16,13 @@ import com.example.munge.app.R
 class DeparturesActivity : AppCompatActivity() {
 
     private val INTENT_PREV_ACTIVITY = "prev_activity"
+    private val INTENT_SEARCH = "search"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departures)
 
-        //gps button
+        //gps buttongit ch
         val imageButton = findViewById<ImageButton>(R.id.imageButton)
         imageButton?.setOnClickListener { Toast.makeText(this, R.string.image_button_clicked, Toast.LENGTH_SHORT).show() }
 
@@ -36,6 +38,7 @@ class DeparturesActivity : AppCompatActivity() {
     private fun changeToDestinations() {
         val intent = Intent(this, DestinationActivity::class.java)
         intent.putExtra(INTENT_PREV_ACTIVITY, "departure")
+        intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
         startActivity(intent)
     }
 
