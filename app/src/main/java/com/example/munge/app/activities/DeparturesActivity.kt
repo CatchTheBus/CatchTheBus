@@ -4,11 +4,9 @@ package com.example.munge.app.activities
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View

@@ -1,16 +1,11 @@
 package com.example.munge.app.activities
 
-import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.util.Log
-import android.widget.TextView
 import org.json.JSONArray
+import org.json.JSONException
 import java.net.HttpURLConnection
 import java.net.URL
-import android.widget.Toast
-import org.json.JSONException
-import org.json.JSONObject
-
 
 
 // https://grokonez.com/android/kotlin-http-call-with-asynctask-example-android

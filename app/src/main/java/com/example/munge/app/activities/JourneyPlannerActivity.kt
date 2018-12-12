@@ -2,25 +2,19 @@ package com.example.munge.app.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.util.Log
+import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import com.example.munge.app.R
-import android.widget.ArrayAdapter
-import android.view.MotionEvent
-import android.view.View
-import android.view.View.OnTouchListener
-import android.R.attr.button
-import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
 import org.json.JSONObject
 
 
