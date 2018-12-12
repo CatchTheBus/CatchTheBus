@@ -59,7 +59,6 @@ class JourneyPlannerActivity : AppCompatActivity() {
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // TODO Auto-generated method stub
-
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -68,10 +67,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
                     idsFrom.clear()
                     val url = "https://www.skanetrafiken.se/handlers/LocationSearch.ashx?action=search&q=$s"
                     val newUrl: String = url.replace("ö", "%C3%B6").replace("ä", "%C3%A4").replace("å", "%C3%A5").replace(" ", "%20")
-                    Log.d("string", newUrl)
                     val data = GetAPIData("journey").execute(newUrl).get()[0]
-
-
                     val stops = JSONObject(data.toString()).getJSONArray("StartEndPoint")
 
                     for (i in 0..(stops.length() - 1)) {
@@ -79,10 +75,6 @@ class JourneyPlannerActivity : AppCompatActivity() {
                         names.add(stop["Name"] as String)
                         idsFrom[stop["Name"]] = stop["Id"]
                     }
-
-
-                    Log.d("size", names.size.toString())
-                    Log.d("size", names.toString())
 
                     val adapter = ArrayAdapter(this@JourneyPlannerActivity, android.R.layout.select_dialog_item, names)
 
@@ -100,7 +92,6 @@ class JourneyPlannerActivity : AppCompatActivity() {
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // TODO Auto-generated method stub
-
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -109,10 +100,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
                     idsTo.clear()
                     val url = "https://www.skanetrafiken.se/handlers/LocationSearch.ashx?action=search&q=$s"
                     val newUrl: String = url.replace("ö", "%C3%B6").replace("ä", "%C3%A4").replace("å", "%C3%A5").replace(" ", "%20")
-                    Log.d("string", newUrl)
                     val data = GetAPIData("journey").execute(newUrl).get()[0]
-
-
                     val stops = JSONObject(data.toString()).getJSONArray("StartEndPoint")
 
                     for (i in 0..(stops.length() - 1)) {
@@ -120,9 +108,6 @@ class JourneyPlannerActivity : AppCompatActivity() {
                         names.add(stop["Name"] as String)
                         idsTo[stop["Name"]] = stop["Id"]
                     }
-
-                    Log.d("size", names.size.toString())
-                    Log.d("size", names.toString())
 
                     val adapter = ArrayAdapter(this@JourneyPlannerActivity, android.R.layout.select_dialog_item, names)
 
@@ -142,7 +127,6 @@ class JourneyPlannerActivity : AppCompatActivity() {
         val formIdTo = idsTo[formInputTo]
 
         if (!names.contains(formInputFrom) && !names.contains(formInputTo)) {
-            Log.d("size", "inside from: ${names.contains("s")}")
             invalidResult = true
         }
 
@@ -158,8 +142,6 @@ class JourneyPlannerActivity : AppCompatActivity() {
             Toast.makeText(this, "Check input", Toast.LENGTH_LONG).show()
         }
     }
-
-
 
     //setting menu in action bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
