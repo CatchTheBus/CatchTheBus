@@ -24,6 +24,7 @@ class GetAPIData(val prev: String) : AsyncTask<String, String, JSONArray>() {
     }
 
     lateinit var journeys : JSONArray
+    lateinit var departures : JSONArray
     private val obj = JSONArray()
 
     override fun doInBackground(vararg urls: String?): JSONArray? {
@@ -40,56 +41,32 @@ class GetAPIData(val prev: String) : AsyncTask<String, String, JSONArray>() {
 
             val inString = streamToString(urlConnection.inputStream)
 
-            if (prev == "destination") {
-                val convertDataToJson = xml2json(inString).convert()
+            when (prev) {
+                "destination_journey" -> {
+                    val convertDataToJson = xml2json(inString).convert()
 
-//                Log.d("journeys", convertDataToJson.toString())
+                    journeys = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetJourneyResponse").getJSONObject("GetJourneyResult").getJSONObject("Journeys").getJSONArray("Journey")
 
-//                start = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetStartEndPointResponse").getJSONObject("GetStartEndPointResult").getJSONObject("StartPoints").getJSONArray("Point")
-//                end = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetStartEndPointResponse").getJSONObject("GetStartEndPointResult").getJSONObject("EndPoints").getJSONArray("Point")
-//
-//
-//                try {
-//                    val list1 = JSONObject()
-//                    list1.put("start", start)
-//                    list1.put("end", end)
-//                    obj.put(list1)
-//                } catch (e1: JSONException) {
-//                    e1.printStackTrace()
-//                }
-//
-                journeys = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetJourneyResponse").getJSONObject("GetJourneyResult").getJSONObject("Journeys").getJSONArray("Journey")
-                //.getJSONObject("Journeys")
-
-
-                Log.d("journeys", journeys::class.toString())
-                Log.d("journeys", journeys.toString())
-                Log.d("journeys", journeys.length().toString())
-//                Log.d("journeys", journeys.getJSONObject("Journeys").toString())
-//                Log.d("journeys", journeys.getJSONObject("Journeys").length().toString())
-//                Log.d("journeys", journeys.getJSONObject("Journeys").getJSONArray("Journey").toString())
-//                Log.d("journeys", journeys.getJSONObject("Journeys").getJSONArray("Journey").length().toString())
-//
-//                try {
-//                    val list1 = JSONObject()
-//                    list1.put("journeys", journeys)
-//                    obj.put(list1)
-//                } catch (e1: JSONException) {
-//                    e1.printStackTrace()
-//                    Log.d("journeys", e1.toString())
-//                }
-
-                return journeys
-            } else if (prev == "journey") {
-                obj.put(inString)
-
-                try {
-                    obj.put(inString)
-                } catch (e1: JSONException) {
-                    e1.printStackTrace()
+                    return journeys
                 }
+                "journey" -> {
+                    obj.put(inString)
 
-                return obj
+                    try {
+                        obj.put(inString)
+                    } catch (e1: JSONException) {
+                        e1.printStackTrace()
+                    }
+
+                    return obj
+                }
+                "destination_departure" -> {
+                    val convertDataToJson = xml2json(inString).convert()
+
+                    departures = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetDepartureArrivalResponse").getJSONObject("GetDepartureArrivalResult").getJSONObject("Lines").getJSONArray("Line")
+
+                    return departures
+                }
             }
         } catch (ex: Exception) {
 
