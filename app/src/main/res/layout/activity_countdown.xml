@@ -46,6 +46,19 @@
                 app:layout_constraintTop_toTopOf="@+id/toolbar" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="parent" android:padding="50dp"
                 android:background="@android:color/darker_gray"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <Button
+                    android:text="Stop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/stop_timer" android:layout_weight="0.5"/>
+            <Button
+                    android:text="Next Bus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/next_bus" android:layout_weight="0.5"/>
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

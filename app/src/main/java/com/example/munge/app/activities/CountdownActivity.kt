@@ -28,6 +28,8 @@ class CountdownActivity : AppCompatActivity() {
 
     private var isCancelled = false
     private var notificationManager: NotificationManager? = null
+    private val departures: ArrayList<String> = ArrayList()
+    private var depIndex: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,41 +44,65 @@ class CountdownActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.countdown_header).text = intent.extras["bus"].toString()
 
-        val countDownInterval:Long = 1000
-
-        timer(getTime(), countDownInterval).start()
-
-        isCancelled = false
-
-        // Notification
         notificationManager =
                 getSystemService(
                         Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager?.cancelAll()
 
-        createNotificationChannel(
-                "com.example.munge.app",
-                "Catch The Bus",
-                "Time until bus leaves")
+        val countDownInterval: Long = 1000
+        var countDown = timer(getTime(), countDownInterval)
+        countDown.start()
 
-        val timer = Timer()
-        val interval: Long = 300000
+        var notificationTimer = Timer()
+        val interval: Long = 10000
 
-        timer.schedule(object : TimerTask() {
+        fun startTimer() = notificationTimer.schedule(object : TimerTask() {
             override fun run() {
                 if (getTime() > 0) {
                     sendNotification(timeStringEven(getTime()))
                 } else {
                     Log.d("countdown", "cancel timer")
-                    timer.cancel()
+                    notificationTimer.cancel()
                 }
             }
         }, interval, interval)
+
+        startTimer()
+
+        findViewById<TextView>(R.id.stop_timer).setOnClickListener {
+            notificationTimer.cancel()
+            notificationTimer.purge()
+            isCancelled = true
+        }
+        findViewById<TextView>(R.id.next_bus).setOnClickListener {
+            if (!isCancelled) {
+                countDown.cancel()
+                notificationTimer.cancel()
+                notificationTimer.purge()
+                notificationTimer = Timer()
+                startTimer()
+            } else if (isCancelled) {
+                notificationTimer = Timer()
+                startTimer()
+            }
+            if (departures.size > depIndex + 1) {
+                depIndex += 1
+            } else {
+                next_bus.isEnabled = false
+            }
+            isCancelled = false
+            countDown = timer(getTime(), countDownInterval)
+            countDown.start()
+        }
     }
 
     private fun sendNotification(contentText: String) {
+        val notificationID = 101
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationID = 101
-
+            createNotificationChannel(
+                    "com.example.munge.app",
+                    "Catch The Bus",
+                    "Time until bus leaves")
             val channelID = "com.example.munge.app"
 
             val notification = Notification.Builder(this@CountdownActivity,
@@ -85,6 +111,16 @@ class CountdownActivity : AppCompatActivity() {
                     .setContentText(contentText)
                     .setSmallIcon(android.R.drawable.ic_dialog_info)
                     .setChannelId(channelID)
+                    .build()
+
+            notificationManager?.notify(notificationID, notification)
+        } else {
+            val notification = Notification.Builder(this@CountdownActivity)
+                    .setContentTitle("Time until departure")
+                    .setContentText(contentText)
+                    .setSmallIcon(android.R.drawable.ic_dialog_info)
+                    .setVibrate(longArrayOf(750, 500, 400))
+                    .setLights(Color.YELLOW, 3000, 3000)
                     .build()
 
             notificationManager?.notify(notificationID, notification)
@@ -99,32 +135,40 @@ class CountdownActivity : AppCompatActivity() {
 
             channel.description = description
             channel.enableLights(true)
-            channel.lightColor = Color.RED
+            channel.lightColor = Color.YELLOW
             channel.enableVibration(true)
             channel.vibrationPattern =
-                    longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
+                    longArrayOf(750, 500, 400)
             notificationManager?.createNotificationChannel(channel)
         }
     }
 
     private fun getTime(): Long {
+        if (departures.size == 0) {
+            fun addTimes() {
+                departures.add("2018-12-12T21:00:00")
+                departures.add("2018-12-12T21:10:00")
+                departures.add("2018-12-12T21:20:00")
+                departures.add("2018-12-12T21:30:00")
+            }
+            addTimes()
+        }
+        val departureTime = departures.get(depIndex)
         val currentTime = Calendar.getInstance().getTime()
-
-        val dtStart = "2018-12-12T14:13:00"
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val date = format.parse(dtStart)
+        val date = format.parse(departureTime)
         val millisInFuture = date.time - currentTime.time
         return millisInFuture
     }
 
     // Method to configure and return an instance of CountDownTimer object
-    private fun timer(millisInFuture:Long,countDownInterval:Long):CountDownTimer{
+    private fun timer(millisInFuture:Long,countDownInterval:Long):CountDownTimer {
         val text_view = findViewById<TextView>(R.id.countdown_view)
-        return object: CountDownTimer(millisInFuture,countDownInterval){
-            override fun onTick(millisUntilFinished: Long){
+        return object: CountDownTimer(millisInFuture,countDownInterval) {
+            override fun onTick(millisUntilFinished: Long) {
                 val timeRemaining = timeString(millisUntilFinished)
                 if (isCancelled){
-                    text_view.text = "${text_view.text}\nStopped.(Cancelled)"
+                    text_view.text = "${text_view.text}\nStopped"
                     cancel()
                 } else {
                     text_view.text = timeRemaining
