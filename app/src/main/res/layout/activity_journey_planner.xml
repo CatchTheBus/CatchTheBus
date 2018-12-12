@@ -53,12 +53,24 @@
                     android:textColorHint="@android:color/black"
                     android:layout_weight="0.75">
 
+
                 <AutoCompleteTextView
+                        android:id="@+id/search_from_journey"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/search_from"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
                         android:hint="From"
-                        android:popupBackground="@null"
-                        android:layout_weight="1" android:textColor="@android:color/darker_gray"/>
+                        android:layout_marginTop="65dp"
+                        android:textColor="@android:color/darker_gray"
+                        android:ems="10" />
+
+                <!--<AutoCompleteTextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content" android:id="@+id/search_from_journey"-->
+                        <!--android:hint="From"-->
+                        <!--android:popupBackground="@null"-->
+                        <!--android:layout_weight="1" android:textColor="@android:color/darker_gray"/>-->
             </android.support.design.widget.TextInputLayout>
 
             <ImageButton
@@ -83,11 +95,15 @@
                     android:layout_weight="0.75">
 
                 <AutoCompleteTextView
+                        android:id="@+id/search_to_journey"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/search_to"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
                         android:hint="To"
-                        android:popupBackground="@null"
-                        android:layout_weight="0.75" android:textColor="@android:color/darker_gray"/>
+                        android:layout_marginTop="65dp"
+                        android:textColor="@android:color/darker_gray"
+                        android:ems="10" />
             </android.support.design.widget.TextInputLayout>
             <TextView
                     android:id="@+id/textView"

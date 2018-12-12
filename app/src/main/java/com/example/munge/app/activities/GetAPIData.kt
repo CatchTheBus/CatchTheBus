@@ -15,7 +15,7 @@ import org.json.JSONObject
 
 // https://grokonez.com/android/kotlin-http-call-with-asynctask-example-android
 
-class GetAPIData(val textField: TextView) : AsyncTask<String, String, JSONArray>() {
+class GetAPIData(val prev: String) : AsyncTask<String, String, JSONArray>() {
 
     val CONNECTON_TIMEOUT_MILLISECONDS = 60000
 
@@ -23,8 +23,7 @@ class GetAPIData(val textField: TextView) : AsyncTask<String, String, JSONArray>
         // Before doInBackground
     }
 
-    lateinit var start : JSONArray
-    lateinit var end : JSONArray
+    lateinit var journeys : JSONArray
     private val obj = JSONArray()
 
     override fun doInBackground(vararg urls: String?): JSONArray? {
@@ -33,29 +32,65 @@ class GetAPIData(val textField: TextView) : AsyncTask<String, String, JSONArray>
         try {
             val url = URL(urls[0])
 
+            Log.d("data", url.toString())
+
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.connectTimeout = CONNECTON_TIMEOUT_MILLISECONDS
             urlConnection.readTimeout = CONNECTON_TIMEOUT_MILLISECONDS
 
             val inString = streamToString(urlConnection.inputStream)
 
-            val convertDataToJson = xml2json(inString).convert()
+            if (prev == "destination") {
+                val convertDataToJson = xml2json(inString).convert()
 
-            start = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetStartEndPointResponse").getJSONObject("GetStartEndPointResult").getJSONObject("StartPoints").getJSONArray("Point")
-            end = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetStartEndPointResponse").getJSONObject("GetStartEndPointResult").getJSONObject("EndPoints").getJSONArray("Point")
+//                Log.d("journeys", convertDataToJson.toString())
+
+//                start = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetStartEndPointResponse").getJSONObject("GetStartEndPointResult").getJSONObject("StartPoints").getJSONArray("Point")
+//                end = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetStartEndPointResponse").getJSONObject("GetStartEndPointResult").getJSONObject("EndPoints").getJSONArray("Point")
+//
+//
+//                try {
+//                    val list1 = JSONObject()
+//                    list1.put("start", start)
+//                    list1.put("end", end)
+//                    obj.put(list1)
+//                } catch (e1: JSONException) {
+//                    e1.printStackTrace()
+//                }
+//
+                journeys = convertDataToJson.getJSONObject("soap:Envelope").getJSONObject("soap:Body").getJSONObject("GetJourneyResponse").getJSONObject("GetJourneyResult").getJSONObject("Journeys").getJSONArray("Journey")
+                //.getJSONObject("Journeys")
 
 
-            try {
-                val list1 = JSONObject()
-                list1.put("start", start)
-                list1.put("end", end)
-                obj.put(list1)
-            } catch (e1: JSONException) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace()
+                Log.d("journeys", journeys::class.toString())
+                Log.d("journeys", journeys.toString())
+                Log.d("journeys", journeys.length().toString())
+//                Log.d("journeys", journeys.getJSONObject("Journeys").toString())
+//                Log.d("journeys", journeys.getJSONObject("Journeys").length().toString())
+//                Log.d("journeys", journeys.getJSONObject("Journeys").getJSONArray("Journey").toString())
+//                Log.d("journeys", journeys.getJSONObject("Journeys").getJSONArray("Journey").length().toString())
+//
+//                try {
+//                    val list1 = JSONObject()
+//                    list1.put("journeys", journeys)
+//                    obj.put(list1)
+//                } catch (e1: JSONException) {
+//                    e1.printStackTrace()
+//                    Log.d("journeys", e1.toString())
+//                }
+
+                return journeys
+            } else if (prev == "journey") {
+                obj.put(inString)
+
+                try {
+                    obj.put(inString)
+                } catch (e1: JSONException) {
+                    e1.printStackTrace()
+                }
+
+                return obj
             }
-
-            return obj
         } catch (ex: Exception) {
 
         } finally {

@@ -19,6 +19,10 @@ import org.w3c.dom.Text
 
 class DestinationActivity : AppCompatActivity() {
 
+    val buses: ArrayList<String> = ArrayList()
+    val bus_destinations: ArrayList<String> = ArrayList()
+    val bus_times: ArrayList<String> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
@@ -33,43 +37,108 @@ class DestinationActivity : AppCompatActivity() {
             val searchFrom = intent.extras["search_from"].toString()
             val searchTo = intent.extras["search_to"].toString()
 
+            val searchFromId = intent.extras["search_from_id"]
+            val searchToId = intent.extras["search_to_id"]
+
             findViewById<TextView>(R.id.location).text = searchFrom
 
-            val url = "http://www.labs.skanetrafiken.se/v2.2/querypage.asp?inpPointFr=$searchFrom&inpPointTo=$searchTo"
-            val data = GetAPIData(findViewById(R.id.testField)).execute(url).get().getJSONObject(0)
+            val url = "http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?cmdaction=next&selPointFr=$searchFrom|$searchFromId|0&selPointTo=$searchTo|$searchToId|0"
+            val newUrl: String = url.replace("ö", "%C3%B6").replace("ä", "%C3%A4").replace("å", "%C3%A5").replace(" ", "%20")
 
-            Log.d("type", data::class.toString())
+            Log.d("journeys", newUrl)
+
+            val data = GetAPIData("destination").execute(newUrl).get()
 
 
-            val start = data.getJSONArray("start")
-            val end = data.getJSONArray("end")
 
-            var startId = 0
-            var endId = 0
+            for (i in 0..(data.length() - 1)) {
+
+//                val id = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["LineTypeId"]
+
+                val routes = data.getJSONObject(i).getJSONObject("RouteLinks")["RouteLink"]
+
+//                Log.d("journey", routes::class.toString())
+//
+//                Log.d("journey", routes.toString())
+                var name: Any
+                var depTime: String
+
+                if (routes is JSONArray) {
+                    name = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONArray("RouteLink")[0]
+                    Log.d("journey", name.toString())
+                    Log.d("journey", name::class.toString())
+                } else {
+                    Log.d("journey", "Object")
+                }
 
 //
-            for (i in 0..(start.length() - 1)) {
-                val item = start.getJSONObject(i)
-
-                if (item["Name"] == searchFrom) {
-                    startId = item["Id"] as Int
-                }
+//                if (routes > 1) {
+//                    Log.d("journey", data.getJSONObject(i).getJSONObject("RouteLinks").toString())
+////                    name = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["Name"].toString()
+////                    depTime = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink")["DepDateTime"].toString()
+//                } else {
+//                    name = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["Name"].toString()
+//                    depTime = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink")["DepDateTime"].toString()
+//                }
+//
+//                buses.add(name)
+//                bus_times.add(depTime)
+//                bus_destinations.add(searchTo)
+//
+//                try {
+//                   val name = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["Name"]
+//                   val depTime = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink")["DepDateTime"]
+//
+//
+//                    buses.add(name.toString())
+//                    bus_times.add(depTime.toString())
+//                    bus_destinations.add(searchTo)
+//                } catch (ex: Exception) {
+//
+//               }
+//
+//                Log.d("info", number.toString())
+//                Log.d("info", depTime.toString())
             }
-
-            for (i in 0..(end.length() - 1)) {
-                val item = end.getJSONObject(i)
-
-                if (item["Name"] == searchTo) {
-                    endId = item["Id"] as Int
-                }
-            }
-
-            Log.d("type", start.toString())
-            Log.d("type", end.toString())
+//            Log.d("journeys", data.length().toString())
+//            Log.d("journeys", data.toString())
+//            Log.d("journeys", data::class.toString())
 
 
-            Log.d("id", startId.toString())
-            Log.d("id", endId.toString())
+//            val journeys = data.getJSONArray("journeys")
+//
+//            Log.d("journeys", journeys.toString())
+
+
+//            val start = data.getJSONArray("start")
+//            val end = data.getJSONArray("end")
+
+//            var startId = 0
+//            var endId = 0
+//
+////
+//            for (i in 0..(start.length() - 1)) {
+//                val item = start.getJSONObject(i)
+//
+//                if (item["Name"] == searchFrom) {
+//                    startId = item["Id"] as Int
+//                }
+//            }
+//
+//            for (i in 0..(end.length() - 1)) {
+//                val item = end.getJSONObject(i)
+//
+//                if (item["Name"] == searchTo) {
+//                    endId = item["Id"] as Int
+//                }
+//            }
+//
+//            Log.d("type", start.toString())
+//            Log.d("type", end.toString())
+//
+//
+//            Log.d("id", startId.toString())
+//            Log.d("id", endId.toString())
 
 //
 //            for (i in 0..(start.length() - 1)) {
@@ -82,10 +151,6 @@ class DestinationActivity : AppCompatActivity() {
             // Set header to location name
             findViewById<TextView>(R.id.location).text = intent.extras["search"].toString()
         }
-
-        addBuses()
-        addDestinations()
-        addTimes()
 
         // Creates a vertical Layout Manager
         bus_list.layoutManager = LinearLayoutManager(this)
@@ -122,32 +187,5 @@ class DestinationActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
-    }
-
-    val buses: ArrayList<String> = ArrayList()
-
-    fun addBuses() {
-        buses.add("441")
-        buses.add("440")
-        buses.add("444")
-        buses.add("470")
-    }
-
-    val bus_destinations: ArrayList<String> = ArrayList()
-
-    fun addDestinations() {
-        bus_destinations.add("To: Stockholm")
-        bus_destinations.add("To: Stockholm")
-        bus_destinations.add("To: Stockholm")
-        bus_destinations.add("To: Stockholm")
-    }
-
-    val bus_times: ArrayList<String> = ArrayList()
-
-    fun addTimes() {
-        bus_times.add("TTD: 5 min")
-        bus_times.add("TTD: 5 min")
-        bus_times.add("TTD: 5 min")
-        bus_times.add("TTD: 5 min")
     }
 }
