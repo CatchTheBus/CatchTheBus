@@ -14,7 +14,7 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="148dp" android:textSize="30sp" android:textColor="@android:color/black"
-    />
+            tools:ignore="HardcodedText"/>
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -27,6 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -51,17 +52,22 @@
                 android:textColor="@android:color/black"
                 tools:ignore="HardcodedText" android:hapticFeedbackEnabled="false" android:textSize="18sp"/>
 
+
         <!-- dropdown choices -->
         <TextView
                 android:id="@+id/spinner_msg"
                 android:layout_width="76dp"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:padding="20dp" android:textColor="@android:color/black"/>
+                android:padding="20dp"
+                android:textColor="@android:color/black"/>
+
         <Spinner
                 android:id="@+id/notifications_spinner"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:textColor="@android:color/black"/>
 
 
 

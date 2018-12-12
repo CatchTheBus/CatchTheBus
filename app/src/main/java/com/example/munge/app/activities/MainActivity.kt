@@ -43,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun changeToSettings() {
+        val intent = Intent(this, AppSettingsActivity::class.java)
+        startActivity(intent)
+    }
+
     //setting menu in action bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.my_menu,menu)
@@ -53,7 +58,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
             // User chose the "Print" item
-            Toast.makeText(this,"Settings",Toast.LENGTH_LONG).show()
+            //Toast.makeText(this,"Settings",Toast.LENGTH_LONG).show()
+            //true
+
+            changeToSettings()
             true
         }
         else -> {

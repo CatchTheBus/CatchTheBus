@@ -25,8 +25,8 @@ class JourneyPlannerActivity : AppCompatActivity() {
         //home navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //search
         val searchButton = findViewById<Button>(R.id.search_journey)
-
         searchButton.setOnClickListener { changeToDestinations() }
     }
 

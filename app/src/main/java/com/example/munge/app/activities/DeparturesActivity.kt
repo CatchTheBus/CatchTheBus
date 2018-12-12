@@ -22,7 +22,7 @@ class DeparturesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departures)
 
-        //gps buttongit ch
+        //gps button
         val imageButton = findViewById<ImageButton>(R.id.imageButton)
         imageButton?.setOnClickListener { Toast.makeText(this, R.string.image_button_clicked, Toast.LENGTH_SHORT).show() }
 
