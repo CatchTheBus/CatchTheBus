@@ -47,7 +47,6 @@ class CountdownActivity : AppCompatActivity() {
         notificationManager =
                 getSystemService(
                         Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager?.cancelAll()
 
         val countDownInterval: Long = 1000
         var countDown = timer(getTime(), countDownInterval)
@@ -146,10 +145,10 @@ class CountdownActivity : AppCompatActivity() {
     private fun getTime(): Long {
         if (departures.size == 0) {
             fun addTimes() {
-                departures.add("2018-12-12T21:00:00")
-                departures.add("2018-12-12T21:10:00")
-                departures.add("2018-12-12T21:20:00")
-                departures.add("2018-12-12T21:30:00")
+                departures.add("2018-12-13T21:00:00")
+                departures.add("2018-12-13T21:10:00")
+                departures.add("2018-12-13T21:20:00")
+                departures.add("2018-12-13T21:30:00")
             }
             addTimes()
         }
@@ -258,10 +257,9 @@ class CountdownActivity : AppCompatActivity() {
             true
         }
         android.R.id.home ->{
-            val activityToStart = intent.extras["prev_activity"].toString().split(" ").last()
-            val c = Class.forName(activityToStart)
-            val intent = Intent(this, c)
-            startActivity(intent)
+            when (intent.extras["prev_activity"].toString()) {
+                "destinations" -> startActivity(Intent(this, MainActivity::class.java))
+            }
             true
         }
         else -> {
