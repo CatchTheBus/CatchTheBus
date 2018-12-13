@@ -31,7 +31,7 @@
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/root_layout"
+            android:id="@+id/linearLayout"
             android:layout_width="339dp"
             android:layout_height="343dp"
             android:orientation="vertical"
@@ -40,7 +40,9 @@
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            tools:context=".AppSettingsActivity">
 
         <!-- Slider switch button -->
         <Switch
@@ -50,10 +52,24 @@
                 android:layout_margin="25dp"
                 android:text="Gps on/off"
                 android:textColor="@android:color/black"
-                tools:ignore="HardcodedText" android:hapticFeedbackEnabled="false" android:textSize="18sp"/>
+                tools:ignore="HardcodedText"
+                android:hapticFeedbackEnabled="false"
+                android:textSize="18sp"/>
 
 
         <!-- dropdown choices -->
+
+        <!--
+        <Spinner
+                android:id="@+id/mySpinner"
+                android:layout_width="match_parent"
+                android:spinnerMode="dialog"
+                android:layout_height="wrap_content"
+                android:text="notifications interval"
+        />
+        -->
+
+        <!--
         <TextView
                 android:id="@+id/spinner_msg"
                 android:layout_width="76dp"
@@ -68,8 +84,7 @@
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
                 android:textColor="@android:color/black"/>
-
-
+        -->
 
     </LinearLayout>
 

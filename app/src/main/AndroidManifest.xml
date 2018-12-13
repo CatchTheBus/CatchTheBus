@@ -28,7 +28,7 @@
         <activity android:name=".activities.DestinationActivity"/>
         <activity android:name=".activities.TimeActivity"/>
         <activity android:name=".activities.CountdownActivity"/>
-        <activity android:name=".activities.AppSettingsActivity"/>
+        <activity android:name=".activities.SettingsTestActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

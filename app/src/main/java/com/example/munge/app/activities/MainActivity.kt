@@ -3,6 +3,7 @@ package com.example.munge.app.activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -13,6 +14,8 @@ import com.example.munge.app.R
 class MainActivity : AppCompatActivity() {
 
     val CONNECTON_TIMEOUT_MILLISECONDS = 60000
+    private val INTENT_PREV_ACTIVITY = "prev_activity"
+    //private val INTENT_SEARCH = "search"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +47,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeToSettings() {
-        val intent = Intent(this, AppSettingsActivity::class.java)
+        //val intent = Intent(this, AppSettingsActivity::class.java)
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        //startActivity(intent)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "main")
+        //intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
         startActivity(intent)
     }
 
@@ -57,10 +64,6 @@ class MainActivity : AppCompatActivity() {
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            //Toast.makeText(this,"Settings",Toast.LENGTH_LONG).show()
-            //true
-
             changeToSettings()
             true
         }

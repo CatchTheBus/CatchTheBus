@@ -40,17 +40,22 @@ class DestinationActivity : AppCompatActivity() {
         bus_list.adapter = BusAdapter(buses, bus_destinations, bus_times, this)
     }
 
-    //setting menu in action bar
+    //settings menu in action bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.my_menu,menu)
         return super.onCreateOptionsMenu(menu)
+    }
+    private fun changeToSettings() {
+        //val intent = Intent(this, AppSettingsActivity::class.java)
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        startActivity(intent)
     }
 
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this,"Settings", Toast.LENGTH_LONG).show()
+            // move to settings
+            changeToSettings()
             true
         }
         android.R.id.home ->{
