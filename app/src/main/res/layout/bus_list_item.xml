@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" android:background="@drawable/border" android:id="@+id/bus_item">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
+        <TextView
+                android:id="@+id/bus_line"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:padding="35dp" android:textColor="@android:color/black"
+                android:gravity="center_vertical"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="200dp"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/bus_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:text="To: Stockholm" android:visibility="visible"
+                    android:layout_weight="0.5" android:gravity="bottom"/>
+            <TextView
+                    android:id="@+id/bus_ttd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:text="TTD: 5 min" android:visibility="visible"
+                    android:layout_weight="0.5" android:gravity="top"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--
         <activity
                 android:name=".activities.SettingsActivity"
                 android:label="@string/title_activity_settings">
@@ -32,6 +33,13 @@
         </activity>
         <activity android:name=".activities.GpsActivity">
         </activity>
+        -->
+        <activity android:name=".activities.JourneyPlannerActivity"/>
+        <activity android:name=".activities.DeparturesActivity"/>
+        <activity android:name=".activities.DestinationActivity"/>
+        <activity android:name=".activities.TimeActivity"/>
+        <activity android:name=".activities.CountdownActivity"/>
+        <activity android:name=".activities.SettingsTestActivity"/>
     </application>
 
     //connect to internet

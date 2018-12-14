@@ -3,6 +3,7 @@ package com.example.munge.app.activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -12,6 +13,7 @@ import com.example.munge.app.R
 
 class MainActivity : AppCompatActivity() {
 
+    val CONNECTON_TIMEOUT_MILLISECONDS = 60000
     private val INTENT_PREV_ACTIVITY = "prev_activity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,15 +31,20 @@ class MainActivity : AppCompatActivity() {
         departures.setOnClickListener { changeToDepartures() }
     }
 
+
     private fun changeToJourneyPlanner() {
         val intent = Intent(this, JourneyPlannerActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
         startActivity(intent)
     }
 
     private fun changeToDepartures() {
         val intent = Intent(this, DeparturesActivity::class.java)
-        intent.putExtra(INTENT_PREV_ACTIVITY, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun changeToSettings() {
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "main")
         startActivity(intent)
     }
 
@@ -50,8 +57,7 @@ class MainActivity : AppCompatActivity() {
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this,"Settings",Toast.LENGTH_LONG).show()
+            changeToSettings()
             true
         }
         else -> {
