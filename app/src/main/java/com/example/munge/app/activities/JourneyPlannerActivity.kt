@@ -46,11 +46,17 @@ class JourneyPlannerActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun changeToSettings() {
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
+        startActivity(intent)
+    }
+
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this,"Settings",Toast.LENGTH_LONG).show()
+            // open settings page
+            changeToSettings()
             true
         }
         android.R.id.home ->{

@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_destination.*
 
 class DestinationActivity : AppCompatActivity() {
 
+    private val INTENT_PREV_ACTIVITY = "prev_activity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
@@ -48,6 +50,9 @@ class DestinationActivity : AppCompatActivity() {
     private fun changeToSettings() {
         //val intent = Intent(this, AppSettingsActivity::class.java)
         val intent = Intent(this, SettingsTestActivity::class.java)
+        //startActivity(intent)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "destination")
+        //intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
         startActivity(intent)
     }
 

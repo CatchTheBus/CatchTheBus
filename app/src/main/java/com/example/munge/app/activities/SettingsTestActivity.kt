@@ -40,12 +40,14 @@ class SettingsTestActivity : AppCompatActivity() {
         }
     }
 
-    // actions on click menu items (home button)
+    // actions on click home button, send back to previous page
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home ->{
             when (intent.extras["prev_activity"].toString()) {
                 "journey" -> startActivity(Intent(this, JourneyPlannerActivity::class.java))
                 "departure" ->  startActivity(Intent(this, DeparturesActivity::class.java))
+                "destination" ->  startActivity(Intent(this, DestinationActivity::class.java))
+                "countdown" ->  startActivity(Intent(this, CountdownActivity::class.java))
                 "main" ->  startActivity(Intent(this, MainActivity::class.java))
             }
             true

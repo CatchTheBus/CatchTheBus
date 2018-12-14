@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     val CONNECTON_TIMEOUT_MILLISECONDS = 60000
     private val INTENT_PREV_ACTIVITY = "prev_activity"
-    //private val INTENT_SEARCH = "search"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +46,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeToSettings() {
-        //val intent = Intent(this, AppSettingsActivity::class.java)
         val intent = Intent(this, SettingsTestActivity::class.java)
-        //startActivity(intent)
         intent.putExtra(INTENT_PREV_ACTIVITY, "main")
-        //intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
         startActivity(intent)
     }
 
