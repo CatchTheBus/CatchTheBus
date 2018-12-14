@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Catch The Bus</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
