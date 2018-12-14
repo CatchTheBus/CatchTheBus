@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit
 
 class CountdownActivity : AppCompatActivity() {
 
+    private val INTENT_PREV_ACTIVITY = "prev_activity"
     private var isCancelled = false
     private var notificationManager: NotificationManager? = null
     private val departures: ArrayList<String> = ArrayList()
@@ -249,11 +250,17 @@ class CountdownActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun changeToSettings() {
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "countdown")
+        startActivity(intent)
+    }
+
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this,"Settings", Toast.LENGTH_LONG).show()
+            //go to settings
+            changeToSettings()
             true
         }
         android.R.id.home ->{

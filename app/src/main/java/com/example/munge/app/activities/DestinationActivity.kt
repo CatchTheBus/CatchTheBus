@@ -14,9 +14,11 @@ import org.json.JSONArray
 
 class DestinationActivity : AppCompatActivity() {
 
+    private val INTENT_PREV_ACTIVITY = "prev_activity"
     private val buses: ArrayList<String> = ArrayList()
     private val busDestinations: ArrayList<String> = ArrayList()
     private val busTimes: ArrayList<String> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,17 +97,25 @@ class DestinationActivity : AppCompatActivity() {
         bus_list.adapter = BusAdapter(buses, busDestinations, busTimes, this)
     }
 
-    //setting menu in action bar
+    //settings menu in action bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.my_menu,menu)
         return super.onCreateOptionsMenu(menu)
+    }
+    private fun changeToSettings() {
+        //val intent = Intent(this, AppSettingsActivity::class.java)
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        //startActivity(intent)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "destination")
+        //intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
+        startActivity(intent)
     }
 
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this,"Settings", Toast.LENGTH_LONG).show()
+            // move to settings
+            changeToSettings()
             true
         }
         android.R.id.home ->{

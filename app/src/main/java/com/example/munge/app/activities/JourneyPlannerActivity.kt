@@ -39,8 +39,8 @@ class JourneyPlannerActivity : AppCompatActivity() {
         //home navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //search
         val searchButton = findViewById<Button>(R.id.search_journey)
-
         searchButton.setOnClickListener { changeToDestinations() }
 
         val searchFromJourney = findViewById<View>(R.id.search_from_journey) as AutoCompleteTextView
@@ -143,11 +143,17 @@ class JourneyPlannerActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun changeToSettings() {
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
+        startActivity(intent)
+    }
+
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this,"Settings",Toast.LENGTH_LONG).show()
+            // open settings page
+            changeToSettings()
             true
         }
         android.R.id.home ->{

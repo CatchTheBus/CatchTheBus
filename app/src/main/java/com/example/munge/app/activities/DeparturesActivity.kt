@@ -28,7 +28,7 @@ class DeparturesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departures)
 
-        //gps buttongit ch
+        //gps button
         val imageButton = findViewById<ImageButton>(R.id.imageButton)
         imageButton?.setOnClickListener { Toast.makeText(this, R.string.image_button_clicked, Toast.LENGTH_SHORT).show() }
 
@@ -103,11 +103,18 @@ class DeparturesActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    // open settings from departures
+    private fun changeToSettings() {
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "departure")
+        startActivity(intent)
+    }
+
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show()
+            // go to settings
+            changeToSettings()
             true
         }
         android.R.id.home -> {
