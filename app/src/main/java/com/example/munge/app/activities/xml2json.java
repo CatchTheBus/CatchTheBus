@@ -14,9 +14,7 @@ public class xml2json {
 
     public JSONObject convert() {
         try {
-
             return XML.toJSONObject(xmlString);
-
         } catch (JSONException e) {
             System.out.println(e.toString());
         }
