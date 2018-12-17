@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.munge.app.activities.DestinationActivity" android:background="@android:color/white">
+        tools:context="com.example.munge.app.activities.DestinationJourneyActivity" android:background="@android:color/white">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"

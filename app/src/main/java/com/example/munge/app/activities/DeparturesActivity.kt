@@ -17,7 +17,7 @@ import org.json.JSONObject
 
 class DeparturesActivity : AppCompatActivity() {
 
-    private val INTENT_PREV_ACTIVITY = "prev_activity"
+    private val INTENT_PREV_ACTIVITY = "prevActivity"
     private val INTENT_SEARCH = "search"
     private val INTENT_SEARCH_FROM_ID = "search_from_id_departures"
     private val names: MutableList<String> = ArrayList()
@@ -87,7 +87,7 @@ class DeparturesActivity : AppCompatActivity() {
         }
 
         if (formInput.isNotEmpty() && !invalidResult) {
-            val intent = Intent(this, DestinationActivity::class.java)
+            val intent = Intent(this, DestinationDepartureActivity::class.java)
             intent.putExtra(INTENT_PREV_ACTIVITY, "departure")
             intent.putExtra(INTENT_SEARCH, formInput)
             intent.putExtra(INTENT_SEARCH_FROM_ID, formIdFrom.toString())

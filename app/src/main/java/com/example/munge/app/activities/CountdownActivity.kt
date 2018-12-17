@@ -9,16 +9,13 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import com.example.munge.app.R
 import kotlinx.android.synthetic.main.activity_countdown.*
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -26,7 +23,7 @@ import java.util.concurrent.TimeUnit
 
 class CountdownActivity : AppCompatActivity() {
 
-    private val INTENT_PREV_ACTIVITY = "prev_activity"
+    private val INTENT_PREV_ACTIVITY = "prevActivity"
     private var isCancelled = false
     private var notificationManager: NotificationManager? = null
     private val departures: ArrayList<String> = ArrayList()
@@ -35,6 +32,8 @@ class CountdownActivity : AppCompatActivity() {
     private val INTENT_SEARCH_TO = "search_to"
     private val INTENT_SEARCH_FROM_ID = "search_from_id"
     private val INTENT_SEARCH_TO_ID = "search_to_id"
+    private val INTENT_SEARCH_FROM_ID_DEPARTURES = "search_from_id_departures"
+    private val INTENT_SEARCH_FROM_DEPARTURES_NAME = "search"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -264,16 +263,25 @@ class CountdownActivity : AppCompatActivity() {
             true
         }
         android.R.id.home ->{
-            when (intent.extras["prev_activity"].toString()) {
-                "destinations" -> {
+            when (intent.extras["prevActivity"].toString()) {
+                "journeys" -> {
                     val intentPrev = intent
                     val hashMapObject = intentPrev.getSerializableExtra("information") as HashMap<String, String>
-                    val intent = Intent(this, DestinationActivity::class.java)
+                    val intent = Intent(this, DestinationJourneyActivity::class.java)
                     intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
                     intent.putExtra(INTENT_SEARCH_FROM,  hashMapObject["searchFrom"])
                     intent.putExtra(INTENT_SEARCH_TO,  hashMapObject["searchTo"])
                     intent.putExtra(INTENT_SEARCH_FROM_ID, hashMapObject["searchFromId"])
                     intent.putExtra(INTENT_SEARCH_TO_ID, hashMapObject["searchToId"])
+                    startActivity(intent)
+                }
+                "departures" -> {
+                    val intentPrev = intent
+                    val hashMapObject = intentPrev.getSerializableExtra("information") as HashMap<String, String>
+                    val intent = Intent(this, DestinationDepartureActivity::class.java)
+                    intent.putExtra(INTENT_PREV_ACTIVITY, "departure")
+                    intent.putExtra(INTENT_SEARCH_FROM_ID_DEPARTURES,  hashMapObject["search_from_id_departures"])
+                    intent.putExtra(INTENT_SEARCH_FROM_DEPARTURES_NAME,  hashMapObject["search"])
                     startActivity(intent)
                 }
             }

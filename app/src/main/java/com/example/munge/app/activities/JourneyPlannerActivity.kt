@@ -20,7 +20,7 @@ import org.json.JSONObject
 
 class JourneyPlannerActivity : AppCompatActivity() {
 
-    private val INTENT_PREV_ACTIVITY = "prev_activity"
+    private val INTENT_PREV_ACTIVITY = "prevActivity"
     private val INTENT_SEARCH_FROM = "search_from"
     private val INTENT_SEARCH_TO = "search_to"
     private val INTENT_SEARCH_FROM_ID = "search_from_id"
@@ -125,7 +125,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
         }
 
         if (formInputFrom.isNotEmpty() && formInputTo.isNotEmpty() && !invalidResult) {
-            val intent = Intent(this, DestinationActivity::class.java)
+            val intent = Intent(this, DestinationJourneyActivity::class.java)
             intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
             intent.putExtra(INTENT_SEARCH_FROM,  formInputFrom)
             intent.putExtra(INTENT_SEARCH_TO,  formInputTo)
@@ -157,7 +157,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
             true
         }
         android.R.id.home ->{
-//            val activityToStart = intent.extras["prev_activity"].toString().split(" ").last()
+//            val activityToStart = intent.extras["prevActivity"].toString().split(" ").last()
 //            val c = Class.forName(activityToStart)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
