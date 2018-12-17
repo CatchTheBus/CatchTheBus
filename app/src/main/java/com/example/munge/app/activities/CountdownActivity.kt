@@ -149,6 +149,7 @@ class CountdownActivity : AppCompatActivity() {
         }
     }
 
+
     private fun getTime(depTime: String): Long {
         departures.add(depTime)
         val departureTime = departures.get(depIndex)
