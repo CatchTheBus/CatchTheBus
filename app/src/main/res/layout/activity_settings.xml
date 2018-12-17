@@ -46,7 +46,7 @@
 
         <!-- Slider switch button -->
         <Switch
-                android:id="@+id/switch_button_gps"
+                android:id="@+id/switchButtonGps"
                 android:layout_width="277dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="25dp"
@@ -55,6 +55,18 @@
                 tools:ignore="HardcodedText"
                 android:hapticFeedbackEnabled="false"
                 android:textSize="18sp"/>
+
+        <Switch
+                android:id="@+id/switchButtonNotificatios"
+                android:layout_width="277dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="Notifications on/off"
+                android:textColor="@android:color/black"
+                tools:ignore="HardcodedText"
+                android:hapticFeedbackEnabled="false"
+                android:textSize="18sp"/>
+
 
 
         <!-- dropdown choices -->

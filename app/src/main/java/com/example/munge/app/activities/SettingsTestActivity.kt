@@ -23,19 +23,34 @@ class SettingsTestActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Set an checked change listener for switch buttons
-        switch_button_gps.setOnCheckedChangeListener { buttonView, isChecked ->
+        switchButtonGps.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 // Change the app background color
-                linearLayout.setBackgroundColor(Color.DKGRAY)
+                //linearLayout.setBackgroundColor(Color.DKGRAY)
             } else {
                 // Set the app background color to light gray
                 linearLayout.setBackgroundColor(Color.LTGRAY)
             }
         }
         // Set a click listener for the button widget
-        switch_button_gps.setOnClickListener {
+        switchButtonGps.setOnClickListener {
             // Change the switch button checked state on button click
-            switch_button_gps.isChecked = if (switch_button_gps.isChecked) false else true
+            switchButtonGps.isChecked = if (switchButtonGps.isChecked) false else true
+        }
+        // Notification button
+        switchButtonNotificatios.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                // Change the app background color
+                //linearLayout.setBackgroundColor(Color.DKGRAY)
+            } else {
+                // Set the app background color to light gray
+                linearLayout.setBackgroundColor(Color.LTGRAY)
+            }
+        }
+        // Set a click listener for the button widget
+        switchButtonNotificatios.setOnClickListener {
+            // Change the switch button checked state on button click
+            switchButtonNotificatios.isChecked = if (switchButtonNotificatios.isChecked) false else true
         }
     }
 
