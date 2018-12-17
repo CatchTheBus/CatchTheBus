@@ -241,7 +241,7 @@ class CountdownActivity : AppCompatActivity() {
         return notificationString
     }
 
-    
+
 
     private fun changeToSettings() {
         val intent = Intent(this, SettingsTestActivity::class.java)

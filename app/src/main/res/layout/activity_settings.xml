@@ -67,23 +67,9 @@
                 android:hapticFeedbackEnabled="false"
                 android:textSize="18sp"/>
 
-
-
         <!-- dropdown choices -->
-
-        <!--
-        <Spinner
-                android:id="@+id/mySpinner"
-                android:layout_width="match_parent"
-                android:spinnerMode="dialog"
-                android:layout_height="wrap_content"
-                android:text="notifications interval"
-        />
-        -->
-
-        <!--
         <TextView
-                android:id="@+id/spinner_msg"
+                android:id="@+id/spinnerMessage"
                 android:layout_width="76dp"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
@@ -91,12 +77,12 @@
                 android:textColor="@android:color/black"/>
 
         <Spinner
-                android:id="@+id/notifications_spinner"
+                android:id="@+id/notificationSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
                 android:textColor="@android:color/black"/>
-        -->
+
 
     </LinearLayout>
 
