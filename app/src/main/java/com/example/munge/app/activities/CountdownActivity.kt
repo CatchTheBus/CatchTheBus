@@ -30,6 +30,7 @@ class CountdownActivity : AppCompatActivity() {
     private var notificationManager: NotificationManager? = null
     private val departures: ArrayList<String> = ArrayList()
     private var depIndex: Int = 0
+    private var notificationTimer = Timer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,6 @@ class CountdownActivity : AppCompatActivity() {
         var countDown = timer(getTime(), countDownInterval)
         countDown.start()
 
-        var notificationTimer = Timer()
         val interval: Long = 10000
 
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
@@ -145,10 +145,10 @@ class CountdownActivity : AppCompatActivity() {
     private fun getTime(): Long {
         if (departures.size == 0) {
             fun addTimes() {
-                departures.add("2018-12-13T21:00:00")
-                departures.add("2018-12-13T21:10:00")
-                departures.add("2018-12-13T21:20:00")
-                departures.add("2018-12-13T21:30:00")
+                departures.add("2018-17-13T21:00:00")
+                departures.add("2018-17-13T21:10:00")
+                departures.add("2018-17-13T21:20:00")
+                departures.add("2018-17-13T21:30:00")
             }
             addTimes()
         }
@@ -217,8 +217,6 @@ class CountdownActivity : AppCompatActivity() {
         val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
         var notificationString = ""
 
-        Log.d("countdown", millisTotal.toString())
-
         if (millisTotal > 0) {
             if (millisTotal > 3600000) {
                 notificationString = String.format(
@@ -260,6 +258,9 @@ class CountdownActivity : AppCompatActivity() {
             when (intent.extras["prev_activity"].toString()) {
                 "destinations" -> startActivity(Intent(this, MainActivity::class.java))
             }
+            notificationTimer.cancel()
+            notificationTimer.purge()
+            notificationManager?.cancelAll()
             true
         }
         else -> {
@@ -267,5 +268,12 @@ class CountdownActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        notificationTimer.cancel()
+        notificationTimer.purge()
+        notificationManager?.cancelAll()
     }
 }
