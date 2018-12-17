@@ -26,21 +26,11 @@ import java.util.concurrent.TimeUnit
 
 class CountdownActivity : AppCompatActivity() {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     private val INTENT_PREV_ACTIVITY = "prev_activity"
-=======
-=======
-    private val INTENT_PREV_ACTIVITY = "prev_activity"
->>>>>>> 87c146d5443e88ea20df79da6f008ad6404c5950
     private var isCancelled = false
     private var notificationManager: NotificationManager? = null
     private val departures: ArrayList<String> = ArrayList()
     private var depIndex: Int = 0
-<<<<<<< HEAD
->>>>>>> a5105804387eb4e909ba3fbc9636d1b876556610
-=======
->>>>>>> 87c146d5443e88ea20df79da6f008ad6404c5950
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
