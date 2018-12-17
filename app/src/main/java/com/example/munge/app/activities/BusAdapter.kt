@@ -15,8 +15,10 @@ import kotlinx.android.synthetic.main.bus_list_item.view.*
 
 private val INTENT_PREV_ACTIVITY = "prev_activity"
 private val INTENT_BUS = "bus"
+private val INTENT_TIME = "time"
+private val INTENT_INFORMATION = "information"
 
-class BusAdapter(val items : ArrayList<String>, val items2 : ArrayList<String>, val items3 : ArrayList<String>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class BusAdapter(val items : ArrayList<String>, val items2 : ArrayList<String>, val items3 : ArrayList<String>, val information : HashMap<String, String>  ,val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     // Gets the number of animals in the list
     override fun getItemCount(): Int {
@@ -33,17 +35,19 @@ class BusAdapter(val items : ArrayList<String>, val items2 : ArrayList<String>, 
         holder?.tvItems?.text = items.get(position)
         holder?.tvItems2?.text = items2.get(position)
         holder?.tvItems3?.text = items3.get(position)
-        holder?.tvItems?.setOnClickListener( { changeToCountdown(holder?.tvItems?.text.toString()) } )
-        holder?.tvItems2?.setOnClickListener( { changeToCountdown(holder?.tvItems?.text.toString()) } )
-        holder?.tvItems3?.setOnClickListener( { changeToCountdown(holder?.tvItems?.text.toString()) } )
-//        Log.d("shit", holder?.tvItems.toString())
-//        holder?.tvItems?.parent?.parent.toString()
+        holder?.tvItems?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), holder.tvItems3.text.toString()) }
+        holder?.tvItems2?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), holder.tvItems3.text.toString()) }
+        holder?.tvItems3?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), holder.tvItems3.text.toString()) }
+
+//        Log.d("information", information.toString())
     }
 
-    fun changeToCountdown(busLine: String) {
+    fun changeToCountdown(busLine: String, depTime: String) {
         val intent = Intent(context, CountdownActivity::class.java)
         intent.putExtra(INTENT_PREV_ACTIVITY, "destinations")
         intent.putExtra(INTENT_BUS, busLine)
+        intent.putExtra(INTENT_TIME, depTime)
+        intent.putExtra(INTENT_INFORMATION, information)
         context.startActivity(intent)
     }
 }

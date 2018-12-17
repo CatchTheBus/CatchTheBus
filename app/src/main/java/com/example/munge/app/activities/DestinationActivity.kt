@@ -18,6 +18,7 @@ class DestinationActivity : AppCompatActivity() {
     private val buses: ArrayList<String> = ArrayList()
     private val busDestinations: ArrayList<String> = ArrayList()
     private val busTimes: ArrayList<String> = ArrayList()
+    private val information = HashMap<String, String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,11 +30,17 @@ class DestinationActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (intent.extras["prev_activity"].toString() == "journey") {
+            information.clear()
             val searchFrom = intent.extras["search_from"].toString()
             val searchTo = intent.extras["search_to"].toString()
 
             val searchFromId = intent.extras["search_from_id"]
             val searchToId = intent.extras["search_to_id"]
+
+            information["searchFrom"] = searchFrom
+            information["searchTo"] = searchTo
+            information["searchFromId"] = searchFromId.toString()
+            information["searchToId"] = searchToId.toString()
 
             findViewById<TextView>(R.id.location).text = searchFrom
 
@@ -94,7 +101,7 @@ class DestinationActivity : AppCompatActivity() {
 //        rv_animal_list.layoutManager = GridLayoutManager(this, 3)
 
         // Access the RecyclerView Adapter and load the data into it
-        bus_list.adapter = BusAdapter(buses, busDestinations, busTimes, this)
+        bus_list.adapter = BusAdapter(buses, busDestinations, busTimes, information ,this)
     }
 
     //settings menu in action bar
