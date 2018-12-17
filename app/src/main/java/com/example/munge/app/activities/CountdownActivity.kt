@@ -241,12 +241,7 @@ class CountdownActivity : AppCompatActivity() {
         return notificationString
     }
 
-    //setting menu in action bar
-    /*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.my_menu,menu)
-        return super.onCreateOptionsMenu(menu)
-    }*/
+    
 
     private fun changeToSettings() {
         val intent = Intent(this, SettingsTestActivity::class.java)
