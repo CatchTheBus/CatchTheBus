@@ -31,6 +31,11 @@ class CountdownActivity : AppCompatActivity() {
     private var notificationManager: NotificationManager? = null
     private val departures: ArrayList<String> = ArrayList()
     private var depIndex: Int = 0
+    private val INTENT_SEARCH_FROM = "search_from"
+    private val INTENT_SEARCH_TO = "search_to"
+    private val INTENT_SEARCH_FROM_ID = "search_from_id"
+    private val INTENT_SEARCH_TO_ID = "search_to_id"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +50,15 @@ class CountdownActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.countdown_header).text = intent.extras["bus"].toString()
 
+
+        val depTime = intent.extras["time"].toString()
+
         notificationManager =
                 getSystemService(
                         Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val countDownInterval: Long = 1000
-        var countDown = timer(getTime(), countDownInterval)
+        var countDown = timer(getTime(depTime), countDownInterval)
         countDown.start()
 
         var notificationTimer = Timer()
@@ -58,8 +66,8 @@ class CountdownActivity : AppCompatActivity() {
 
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
             override fun run() {
-                if (getTime() > 0) {
-                    sendNotification(timeStringEven(getTime()))
+                if (getTime(depTime) > 0) {
+                    sendNotification(timeStringEven(getTime(depTime)))
                 } else {
                     Log.d("countdown", "cancel timer")
                     notificationTimer.cancel()
@@ -91,7 +99,7 @@ class CountdownActivity : AppCompatActivity() {
                 next_bus.isEnabled = false
             }
             isCancelled = false
-            countDown = timer(getTime(), countDownInterval)
+            countDown = timer(getTime(depTime), countDownInterval)
             countDown.start()
         }
     }
@@ -143,16 +151,8 @@ class CountdownActivity : AppCompatActivity() {
         }
     }
 
-    private fun getTime(): Long {
-        if (departures.size == 0) {
-            fun addTimes() {
-                departures.add("2018-12-13T21:00:00")
-                departures.add("2018-12-13T21:10:00")
-                departures.add("2018-12-13T21:20:00")
-                departures.add("2018-12-13T21:30:00")
-            }
-            addTimes()
-        }
+    private fun getTime(depTime: String): Long {
+        departures.add(depTime)
         val departureTime = departures.get(depIndex)
         val currentTime = Calendar.getInstance().getTime()
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -176,8 +176,8 @@ class CountdownActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                text_view.text = "The bus left"
-                sendNotification("The bus left")
+                text_view.text = "Unlucky, You missed your departure :D"
+                sendNotification("Unlucky, You missed your departure :D")
             }
         }
     }
@@ -265,7 +265,17 @@ class CountdownActivity : AppCompatActivity() {
         }
         android.R.id.home ->{
             when (intent.extras["prev_activity"].toString()) {
-                "destinations" -> startActivity(Intent(this, MainActivity::class.java))
+                "destinations" -> {
+                    val intentPrev = intent
+                    val hashMapObject = intentPrev.getSerializableExtra("information") as HashMap<String, String>
+                    val intent = Intent(this, DestinationActivity::class.java)
+                    intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
+                    intent.putExtra(INTENT_SEARCH_FROM,  hashMapObject["searchFrom"])
+                    intent.putExtra(INTENT_SEARCH_TO,  hashMapObject["searchTo"])
+                    intent.putExtra(INTENT_SEARCH_FROM_ID, hashMapObject["searchFromId"])
+                    intent.putExtra(INTENT_SEARCH_TO_ID, hashMapObject["searchToId"])
+                    startActivity(intent)
+                }
             }
             true
         }
