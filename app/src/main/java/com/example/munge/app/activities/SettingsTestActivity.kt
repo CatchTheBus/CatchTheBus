@@ -13,9 +13,6 @@ import com.example.munge.app.R
 import kotlinx.android.synthetic.main.activity_settings.*
 
 
-// spinner or other list instead?
-//spinner: https://www.androidly.net/214/android-spinner-using-kotlin
-// listView: https://www.raywenderlich.com/155-android-listview-tutorial-with-kotlin
 class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     var notificationTime = arrayOf("30 sec", "1 min", "5 min", "10 min", "20 min", "30 min")
@@ -39,12 +36,14 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 linearLayout.setBackgroundColor(Color.LTGRAY)
             }
         }
+
         // Set a click listener for the button widget
         switchButtonGps.setOnClickListener {
             // Change the switch button checked state on button click
             switchButtonGps.isChecked = if (switchButtonGps.isChecked) false else true
         }
-        // Notification button
+
+        // Notification on off button
         switchButtonNotificatios.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 // Change the app background color
@@ -54,6 +53,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 linearLayout.setBackgroundColor(Color.LTGRAY)
             }
         }
+
         // Set a click listener for the button widget
         switchButtonNotificatios.setOnClickListener {
             // Change the switch button checked state on button click
@@ -71,7 +71,6 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             onItemSelectedListener = this@SettingsTestActivity
             prompt = "Select notification interval"
             gravity = Gravity.CENTER
-
         }
 
         val spinner = Spinner(this)
@@ -93,9 +92,9 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             layoutParams = ll
             prompt = "Select notification interval"
             setPopupBackgroundResource(R.color.material_grey_600)
-
         }
     }
+
     override fun onNothingSelected(parent: AdapterView<*>?) {
         showToast(message = "Nothing selected")
     }
@@ -105,11 +104,10 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
         when (view?.id) {
             1 -> showToast(message = "Spinner 2 Position:${position} and language: ${notificationTime[position]}")
-            else -> {
-                showToast(message = "Spinner 1 Position:${position} and language: ${notificationTime[position]}")
-            }
+            else -> showToast(message = "Spinner 1 Position:${position} and language: ${notificationTime[position]}")
         }
     }
+
     //Spinner: create messages for toastmessage
     private fun showToast(context: Context = applicationContext, message: String, duration: Int = Toast.LENGTH_LONG) {
         Toast.makeText(context, message, duration).show()
@@ -122,7 +120,6 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 "journey" -> startActivity(Intent(this, JourneyPlannerActivity::class.java))
                 "departure" ->  startActivity(Intent(this, DeparturesActivity::class.java))
                 "destination" ->  startActivity(Intent(this, DestinationJourneyActivity::class.java))
-                //"countdown" ->  startActivity(Intent(this, CountdownActivity::class.java))
                 "main" ->  startActivity(Intent(this, MainActivity::class.java))
             }
             true
