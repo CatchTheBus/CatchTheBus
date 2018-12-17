@@ -53,7 +53,7 @@ class DeparturesActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (count > 1) {
+                if (count > 1 || s.length > 1) {
                     names.clear()
                     idsFrom.clear()
                     val url = "https://www.skanetrafiken.se/handlers/LocationSearch.ashx?action=search&q=$s"

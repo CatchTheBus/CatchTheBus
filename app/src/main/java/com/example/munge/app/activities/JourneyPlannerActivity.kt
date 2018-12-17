@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -56,7 +57,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (count > 1) {
+                if (count > 1 || s.length > 1) {
                     names.clear()
                     idsFrom.clear()
                     val url = "https://www.skanetrafiken.se/handlers/LocationSearch.ashx?action=search&q=$s"
@@ -89,7 +90,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (count > 1) {
+                if (count > 1 || s.length > 1) {
                     names.clear()
                     idsTo.clear()
                     val url = "https://www.skanetrafiken.se/handlers/LocationSearch.ashx?action=search&q=$s"
