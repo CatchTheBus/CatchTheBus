@@ -29,9 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         journeyPlanner.setOnClickListener { changeToJourneyPlanner() }
         departures.setOnClickListener { changeToDepartures() }
-
-        val url = "http://www.labs.skanetrafiken.se/v2.2/querypage.asp?inpPointFr=lund&inpPointTo=ystad"
-        GetAPIData(this).execute(url)
     }
 
 
