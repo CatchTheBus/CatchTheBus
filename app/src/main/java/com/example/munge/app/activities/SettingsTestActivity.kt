@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.widget.Toast
 import com.example.munge.app.R
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -43,10 +42,10 @@ class SettingsTestActivity : AppCompatActivity() {
     // actions on click home button, send back to previous page
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home ->{
-            when (intent.extras["prev_activity"].toString()) {
+            when (intent.extras["prevActivity"].toString()) {
                 "journey" -> startActivity(Intent(this, JourneyPlannerActivity::class.java))
                 "departure" ->  startActivity(Intent(this, DeparturesActivity::class.java))
-                "destination" ->  startActivity(Intent(this, DestinationActivity::class.java))
+                "destination" ->  startActivity(Intent(this, DestinationJourneyActivity::class.java))
                 "countdown" ->  startActivity(Intent(this, CountdownActivity::class.java))
                 "main" ->  startActivity(Intent(this, MainActivity::class.java))
             }

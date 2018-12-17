@@ -14,7 +14,7 @@ import com.example.munge.app.R
 class MainActivity : AppCompatActivity() {
 
     val CONNECTON_TIMEOUT_MILLISECONDS = 60000
-    private val INTENT_PREV_ACTIVITY = "prev_activity"
+    private val INTENT_PREV_ACTIVITY = "prevActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
