@@ -3,6 +3,7 @@ package com.example.munge.app.activities
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -97,6 +98,13 @@ class CountdownActivity : AppCompatActivity() {
 
     private fun sendNotification(contentText: String) {
         val notificationID = 101
+        val resultIntent = Intent(this, CountdownActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
                     "com.example.munge.app",
@@ -110,6 +118,7 @@ class CountdownActivity : AppCompatActivity() {
                     .setContentText(contentText)
                     .setSmallIcon(android.R.drawable.ic_dialog_info)
                     .setChannelId(channelID)
+                    .setContentIntent(pendingIntent)
                     .build()
 
             notificationManager?.notify(notificationID, notification)
@@ -120,6 +129,7 @@ class CountdownActivity : AppCompatActivity() {
                     .setSmallIcon(android.R.drawable.ic_dialog_info)
                     .setVibrate(longArrayOf(750, 500, 400))
                     .setLights(Color.YELLOW, 3000, 3000)
+                    .setContentIntent(pendingIntent)
                     .build()
 
             notificationManager?.notify(notificationID, notification)
@@ -274,6 +284,11 @@ class CountdownActivity : AppCompatActivity() {
         super.onBackPressed()
         notificationTimer.cancel()
         notificationTimer.purge()
+        notificationManager?.cancelAll()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         notificationManager?.cancelAll()
     }
 }
