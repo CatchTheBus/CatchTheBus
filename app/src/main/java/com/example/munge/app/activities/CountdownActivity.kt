@@ -34,7 +34,7 @@ class CountdownActivity : AppCompatActivity() {
     private val INTENT_SEARCH_TO_ID = "search_to_id"
     private val INTENT_SEARCH_FROM_ID_DEPARTURES = "search_from_id_departures"
     private val INTENT_SEARCH_FROM_DEPARTURES_NAME = "search"
-
+    private var notificationTimer = Timer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,6 @@ class CountdownActivity : AppCompatActivity() {
         var countDown = timer(getTime(depTime), countDownInterval)
         countDown.start()
 
-        var notificationTimer = Timer()
         val interval: Long = 10000
 
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
@@ -217,8 +216,6 @@ class CountdownActivity : AppCompatActivity() {
         val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
         var notificationString = ""
 
-        Log.d("countdown", millisTotal.toString())
-
         if (millisTotal > 0) {
             if (millisTotal > 3600000) {
                 notificationString = String.format(
@@ -285,6 +282,9 @@ class CountdownActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+            notificationTimer.cancel()
+            notificationTimer.purge()
+            notificationManager?.cancelAll()
             true
         }
         else -> {
@@ -292,5 +292,12 @@ class CountdownActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        notificationTimer.cancel()
+        notificationTimer.purge()
+        notificationManager?.cancelAll()
     }
 }
