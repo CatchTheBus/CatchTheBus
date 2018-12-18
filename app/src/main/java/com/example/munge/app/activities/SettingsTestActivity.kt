@@ -60,19 +60,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             switchButtonNotificatios.isChecked = if (switchButtonNotificatios.isChecked) false else true
         }
 
-        // Spinner
-       // var aa = ArrayAdapter(this@SettingsTestActivity, android.R.layout.simple_spinner_item, notificationTime)
-       // aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-/*
-        with(notificationSpinner)
-        {
-            adapter = aa
-            setSelection(0, false)
-            onItemSelectedListener = this@SettingsTestActivity
-            prompt = "Select notification interval"
-            gravity = Gravity.CENTER
-        }*/
-
+        //SPINNER:
         val spinner = Spinner(this)
         spinner.id = NEW_SPINNER_ID
 
@@ -103,6 +91,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
         //send to CountdownActivity ${notificationTime[position]}
+        //make new get selected time fun for countdownactivity?
 
         when (view?.id) {
             1 -> showToast(this, "Notification interval: ${notificationTime[position]}")
