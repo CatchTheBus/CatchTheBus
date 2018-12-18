@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    var notificationTime = arrayOf("30 sec", "1 min", "5 min", "10 min", "20 min", "30 min")
+    var notificationTime = arrayOf("1 min", "5 min", "10 min", "20 min", "30 min")
     val NEW_SPINNER_ID = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 //linearLayout.setBackgroundColor(Color.DKGRAY)
             } else {
                 // Set the app background color to light gray
-                linearLayout.setBackgroundColor(Color.LTGRAY)
+                //linearLayout.setBackgroundColor(Color.LTGRAY)
             }
         }
 
@@ -50,7 +50,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 //linearLayout.setBackgroundColor(Color.DKGRAY)
             } else {
                 // Set the app background color to light gray
-                linearLayout.setBackgroundColor(Color.LTGRAY)
+                //linearLayout.setBackgroundColor(Color.LTGRAY)
             }
         }
 
@@ -61,9 +61,9 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
 
         // Spinner
-        var aa = ArrayAdapter(this@SettingsTestActivity, android.R.layout.simple_spinner_item, notificationTime)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
+       // var aa = ArrayAdapter(this@SettingsTestActivity, android.R.layout.simple_spinner_item, notificationTime)
+       // aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+/*
         with(notificationSpinner)
         {
             adapter = aa
@@ -71,7 +71,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             onItemSelectedListener = this@SettingsTestActivity
             prompt = "Select notification interval"
             gravity = Gravity.CENTER
-        }
+        }*/
 
         val spinner = Spinner(this)
         spinner.id = NEW_SPINNER_ID
@@ -81,7 +81,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         ll.setMargins(10, 40, 10, 10)
         linearLayout.addView(spinner)
 
-        aa = ArrayAdapter(this@SettingsTestActivity, R.layout.spinner_right_aligned, notificationTime)
+        val aa = ArrayAdapter(this@SettingsTestActivity, R.layout.spinner_right_aligned, notificationTime)
         aa.setDropDownViewResource(R.layout.spinner_right_aligned)
 
         with(spinner)
@@ -91,20 +91,22 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             onItemSelectedListener = this@SettingsTestActivity
             layoutParams = ll
             prompt = "Select notification interval"
-            setPopupBackgroundResource(R.color.material_grey_600)
+            setPopupBackgroundResource(R.color.colorAccent)
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        showToast(message = "Nothing selected")
+        showToast(this, "Nothing selected")
     }
 
-    //Spinner: display selected result
+    //Spinner: when item is selected; display selected result, send time to CountDownActivity
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
+        //send to CountdownActivity ${notificationTime[position]}
+
         when (view?.id) {
-            1 -> showToast(message = "Spinner 2 Position:${position} and language: ${notificationTime[position]}")
-            else -> showToast(message = "Spinner 1 Position:${position} and language: ${notificationTime[position]}")
+            1 -> showToast(this, "Notification interval: ${notificationTime[position]}")
+            //else -> showToast(this, "Spinner 1 Position:${position} notification interval: ${notificationTime[position]}")
         }
     }
 
@@ -113,6 +115,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         Toast.makeText(context, message, duration).show()
     }
 
+    //HOME button
     // actions on click home button, send back to previous page
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home ->{
@@ -121,6 +124,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 "departure" ->  startActivity(Intent(this, DeparturesActivity::class.java))
                 "destination" ->  startActivity(Intent(this, DestinationJourneyActivity::class.java))
                 "main" ->  startActivity(Intent(this, MainActivity::class.java))
+                "destinationDeparture" -> startActivity(Intent(this, DestinationDepartureActivity::class.java))
             }
             true
             //back to main
