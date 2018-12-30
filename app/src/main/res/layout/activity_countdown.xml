@@ -51,13 +51,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <Button
+                    android:text="Start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/next_bus" android:layout_weight="0.5"/>
+            <Button
                     android:text="Stop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/stop_timer" android:layout_weight="0.5"/>
-            <Button
-                    android:text="Next Bus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/next_bus" android:layout_weight="0.5"/>
         </LinearLayout>
     </LinearLayout>
 

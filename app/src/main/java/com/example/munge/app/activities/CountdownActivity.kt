@@ -69,28 +69,21 @@ class CountdownActivity : AppCompatActivity() {
 
         startTimer()
 
+        next_bus.isEnabled = false
+
         findViewById<TextView>(R.id.stop_timer).setOnClickListener {
             notificationTimer.cancel()
             notificationTimer.purge()
             notificationManager?.cancelAll()
             isCancelled = true
+            stop_timer.isEnabled = false
+            next_bus.isEnabled = true
         }
         findViewById<TextView>(R.id.next_bus).setOnClickListener {
-            if (!isCancelled) {
-                countDown.cancel()
-                notificationTimer.cancel()
-                notificationTimer.purge()
-                notificationTimer = Timer()
-                startTimer()
-            } else if (isCancelled) {
-                notificationTimer = Timer()
-                startTimer()
-            }
-            if (departures.size > depIndex + 1) {
-                depIndex += 1
-            } else {
-                next_bus.isEnabled = false
-            }
+            notificationTimer = Timer()
+            startTimer()
+            stop_timer.isEnabled = true
+            next_bus.isEnabled = false
             isCancelled = false
             countDown = timer(getTime(), countDownInterval)
             countDown.start()
@@ -156,10 +149,10 @@ class CountdownActivity : AppCompatActivity() {
     private fun getTime(): Long {
         if (departures.size == 0) {
             fun addTimes() {
-                departures.add("2018-17-13T21:00:00")
-                departures.add("2018-17-13T21:10:00")
-                departures.add("2018-17-13T21:20:00")
-                departures.add("2018-17-13T21:30:00")
+                departures.add("2018-12-31T23:59:59")
+                departures.add("2018-12-31T23:59:59")
+                departures.add("2018-12-31T23:59:59")
+                departures.add("2018-12-31T23:59:59")
             }
             addTimes()
         }
@@ -186,8 +179,8 @@ class CountdownActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                text_view.text = "The bus left"
-                sendNotification("The bus left")
+                text_view.text = "UNLUCKY"
+                sendNotification("Unlucky, you missed your departure")
             }
         }
     }
