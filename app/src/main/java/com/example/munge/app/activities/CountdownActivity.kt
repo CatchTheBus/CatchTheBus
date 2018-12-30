@@ -10,16 +10,13 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import com.example.munge.app.R
 import kotlinx.android.synthetic.main.activity_countdown.*
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -27,10 +24,17 @@ import java.util.concurrent.TimeUnit
 
 class CountdownActivity : AppCompatActivity() {
 
+    private val INTENT_PREV_ACTIVITY = "prevActivity"
     private var isCancelled = false
     private var notificationManager: NotificationManager? = null
     private val departures: ArrayList<String> = ArrayList()
     private var depIndex: Int = 0
+    private val INTENT_SEARCH_FROM = "search_from"
+    private val INTENT_SEARCH_TO = "search_to"
+    private val INTENT_SEARCH_FROM_ID = "search_from_id"
+    private val INTENT_SEARCH_TO_ID = "search_to_id"
+    private val INTENT_SEARCH_FROM_ID_DEPARTURES = "search_from_id_departures"
+    private val INTENT_SEARCH_FROM_DEPARTURES_NAME = "search"
     private var notificationTimer = Timer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,20 +50,23 @@ class CountdownActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.countdown_header).text = intent.extras["bus"].toString()
 
+
+        val depTime = intent.extras["time"].toString()
+
         notificationManager =
                 getSystemService(
                         Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val countDownInterval: Long = 1000
-        var countDown = timer(getTime(), countDownInterval)
+        var countDown = timer(getTime(depTime), countDownInterval)
         countDown.start()
 
         val interval: Long = 10000
 
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
             override fun run() {
-                if (getTime() > 0) {
-                    sendNotification(timeStringEven(getTime()))
+                if (getTime(depTime) > 0) {
+                    sendNotification(timeStringEven(getTime(depTime)))
                 } else {
                     Log.d("countdown", "cancel timer")
                     notificationTimer.cancel()
@@ -85,7 +92,7 @@ class CountdownActivity : AppCompatActivity() {
             stop_timer.isEnabled = true
             next_bus.isEnabled = false
             isCancelled = false
-            countDown = timer(getTime(), countDownInterval)
+            countDown = timer(getTime(depTime), countDownInterval)
             countDown.start()
         }
     }
@@ -146,16 +153,8 @@ class CountdownActivity : AppCompatActivity() {
         }
     }
 
-    private fun getTime(): Long {
-        if (departures.size == 0) {
-            fun addTimes() {
-                departures.add("2018-12-31T23:59:59")
-                departures.add("2018-12-31T23:59:59")
-                departures.add("2018-12-31T23:59:59")
-                departures.add("2018-12-31T23:59:59")
-            }
-            addTimes()
-        }
+    private fun getTime(depTime: String): Long {
+        departures.add(depTime)
         val departureTime = departures.get(depIndex)
         val currentTime = Calendar.getInstance().getTime()
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -180,8 +179,7 @@ class CountdownActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 text_view.text = "UNLUCKY"
-                sendNotification("Unlucky, you missed your departure")
-            }
+                sendNotification("Unlucky, you missed your departure") }
         }
     }
 
@@ -245,22 +243,44 @@ class CountdownActivity : AppCompatActivity() {
         return notificationString
     }
 
-    //setting menu in action bar
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.my_menu,menu)
-        return super.onCreateOptionsMenu(menu)
+
+
+    private fun changeToSettings() {
+        val intent = Intent(this, SettingsTestActivity::class.java)
+        intent.putExtra(INTENT_PREV_ACTIVITY, "countdown")
+        startActivity(intent)
     }
+
 
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            // User chose the "Print" item
-            Toast.makeText(this,"Settings", Toast.LENGTH_LONG).show()
+            //go to settings
+            changeToSettings()
             true
         }
         android.R.id.home ->{
-            when (intent.extras["prev_activity"].toString()) {
-                "destinations" -> startActivity(Intent(this, MainActivity::class.java))
+            when (intent.extras["prevActivity"].toString()) {
+                "journeys" -> {
+                    val intentPrev = intent
+                    val hashMapObject = intentPrev.getSerializableExtra("information") as HashMap<String, String>
+                    val intent = Intent(this, DestinationJourneyActivity::class.java)
+                    intent.putExtra(INTENT_PREV_ACTIVITY, "journey")
+                    intent.putExtra(INTENT_SEARCH_FROM,  hashMapObject["searchFrom"])
+                    intent.putExtra(INTENT_SEARCH_TO,  hashMapObject["searchTo"])
+                    intent.putExtra(INTENT_SEARCH_FROM_ID, hashMapObject["searchFromId"])
+                    intent.putExtra(INTENT_SEARCH_TO_ID, hashMapObject["searchToId"])
+                    startActivity(intent)
+                }
+                "departures" -> {
+                    val intentPrev = intent
+                    val hashMapObject = intentPrev.getSerializableExtra("information") as HashMap<String, String>
+                    val intent = Intent(this, DestinationDepartureActivity::class.java)
+                    intent.putExtra(INTENT_PREV_ACTIVITY, "departure")
+                    intent.putExtra(INTENT_SEARCH_FROM_ID_DEPARTURES,  hashMapObject["search_from_id_departures"])
+                    intent.putExtra(INTENT_SEARCH_FROM_DEPARTURES_NAME,  hashMapObject["search"])
+                    startActivity(intent)
+                }
             }
             notificationTimer.cancel()
             notificationTimer.purge()
