@@ -72,6 +72,7 @@ class CountdownActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.stop_timer).setOnClickListener {
             notificationTimer.cancel()
             notificationTimer.purge()
+            notificationManager?.cancelAll()
             isCancelled = true
         }
         findViewById<TextView>(R.id.next_bus).setOnClickListener {
@@ -103,7 +104,7 @@ class CountdownActivity : AppCompatActivity() {
                 this,
                 0,
                 resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_NO_CREATE
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
