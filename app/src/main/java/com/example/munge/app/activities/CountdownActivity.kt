@@ -50,7 +50,6 @@ class CountdownActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.countdown_header).text = intent.extras["bus"].toString()
 
-
         val depTime = intent.extras["time"].toString()
 
         notificationManager =
@@ -179,7 +178,8 @@ class CountdownActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 text_view.text = "UNLUCKY"
-                sendNotification("Unlucky, you missed your departure") }
+                sendNotification("Unlucky, you missed your departure")
+            }
         }
     }
 
@@ -242,8 +242,6 @@ class CountdownActivity : AppCompatActivity() {
         }
         return notificationString
     }
-
-
 
     private fun changeToSettings() {
         val intent = Intent(this, SettingsTestActivity::class.java)
