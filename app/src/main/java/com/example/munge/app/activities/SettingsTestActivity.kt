@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
@@ -20,6 +21,8 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPreferences = getSharedPreferences("com.example.munge.app.settings", Context.MODE_PRIVATE)
+
         setContentView(R.layout.activity_settings)
         //setting toolbar
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -72,10 +75,20 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         val aa = ArrayAdapter(this@SettingsTestActivity, R.layout.spinner_right_aligned, notificationTime)
         aa.setDropDownViewResource(R.layout.spinner_right_aligned)
 
+        val intervalString: String
+        var settingPosition = 0
+
+        if (sharedPreferences.contains("interval")) {
+            val setting = sharedPreferences.getInt("interval", 0)
+            intervalString = "${setting} min"
+            settingPosition = notificationTime.indexOf(intervalString)
+            Log.d("countdown", setting.toString())
+        }
+
         with(spinner)
         {
             adapter = aa
-            setSelection(0, false)
+            setSelection(settingPosition, false)
             onItemSelectedListener = this@SettingsTestActivity
             layoutParams = ll
             prompt = "Select notification interval"
@@ -97,6 +110,12 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             1 -> showToast(this, "Notification interval: ${notificationTime[position]}")
             //else -> showToast(this, "Spinner 1 Position:${position} notification interval: ${notificationTime[position]}")
         }
+
+        val sharedPreferences = getSharedPreferences("com.example.munge.app.settings", Context.MODE_PRIVATE)
+        val intervalTime = notificationTime[position].replace(" min", "")
+        val editor = sharedPreferences.edit()
+        editor.putInt("interval", intervalTime.toInt())
+        editor.apply()
     }
 
     //Spinner: create messages for toastmessage

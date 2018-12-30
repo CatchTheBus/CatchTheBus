@@ -60,7 +60,18 @@ class CountdownActivity : AppCompatActivity() {
         var countDown = timer(getTime(depTime), countDownInterval)
         countDown.start()
 
-        val interval: Long = 10000
+        var interval: Long = 60000
+
+        val sharedPreferences = getSharedPreferences("com.example.munge.app.settings", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.contains("interval")) {
+            val milliSeconds = sharedPreferences.getInt("interval", 0) * 1000
+            val setting = milliSeconds.toLong()
+            Log.d("countdown", setting.toString())
+            interval = setting
+        } else {
+            Log.d("countdown", "not set")
+        }
 
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
             override fun run() {
