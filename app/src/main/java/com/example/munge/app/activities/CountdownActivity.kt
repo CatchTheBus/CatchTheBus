@@ -65,7 +65,7 @@ class CountdownActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("com.example.munge.app.settings", Context.MODE_PRIVATE)
 
         if (sharedPreferences.contains("interval")) {
-            val milliSeconds = sharedPreferences.getInt("interval", 0) * 1000
+            val milliSeconds = sharedPreferences.getInt("interval", 0) * 60000
             val setting = milliSeconds.toLong()
             Log.d("countdown", setting.toString())
             interval = setting
