@@ -84,7 +84,16 @@ class CountdownActivity : AppCompatActivity() {
             }
         }, interval, interval)
 
-        startTimer()
+        if (sharedPreferences.contains("notifications")) {
+            if (sharedPreferences.getBoolean("notifications", true)) {
+                startTimer()
+            }
+        } else {
+            startTimer()
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("notifications", true)
+            editor.apply()
+        }
 
         next_bus.isEnabled = false
 

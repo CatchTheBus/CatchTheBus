@@ -29,6 +29,15 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         //home navigation button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        if (sharedPreferences.contains("notifications")) {
+            switchButtonNotificatios.isChecked = sharedPreferences.getBoolean("notifications", true)
+        } else {
+            switchButtonNotificatios.isChecked = true
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("notifications", true)
+            editor.apply()
+        }
+
         // Set an checked change listener for switch buttons
         switchButtonGps.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
@@ -49,9 +58,15 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         // Notification on off button
         switchButtonNotificatios.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("notifications", true)
+                editor.apply()
                 // Change the app background color
                 //linearLayout.setBackgroundColor(Color.DKGRAY)
             } else {
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("notifications", false)
+                editor.apply()
                 // Set the app background color to light gray
                 //linearLayout.setBackgroundColor(Color.LTGRAY)
             }
@@ -60,7 +75,8 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         // Set a click listener for the button widget
         switchButtonNotificatios.setOnClickListener {
             // Change the switch button checked state on button click
-            switchButtonNotificatios.isChecked = if (switchButtonNotificatios.isChecked) false else true
+            // Unnecessary
+//            switchButtonNotificatios.isChecked = !switchButtonNotificatios.isChecked
         }
 
         //SPINNER:
@@ -82,7 +98,6 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             val setting = sharedPreferences.getInt("interval", 0)
             intervalString = "${setting} min"
             settingPosition = notificationTime.indexOf(intervalString)
-            Log.d("countdown", setting.toString())
         }
 
         with(spinner)
