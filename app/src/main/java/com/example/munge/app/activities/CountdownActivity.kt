@@ -50,7 +50,6 @@ class CountdownActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.countdown_header).text = intent.extras["bus"].toString()
 
-
         val depTime = intent.extras["time"].toString()
 
         notificationManager =
@@ -76,27 +75,21 @@ class CountdownActivity : AppCompatActivity() {
 
         startTimer()
 
+        next_bus.isEnabled = false
+
         findViewById<TextView>(R.id.stop_timer).setOnClickListener {
             notificationTimer.cancel()
             notificationTimer.purge()
+            notificationManager?.cancelAll()
             isCancelled = true
+            stop_timer.isEnabled = false
+            next_bus.isEnabled = true
         }
         findViewById<TextView>(R.id.next_bus).setOnClickListener {
-            if (!isCancelled) {
-                countDown.cancel()
-                notificationTimer.cancel()
-                notificationTimer.purge()
-                notificationTimer = Timer()
-                startTimer()
-            } else if (isCancelled) {
-                notificationTimer = Timer()
-                startTimer()
-            }
-            if (departures.size > depIndex + 1) {
-                depIndex += 1
-            } else {
-                next_bus.isEnabled = false
-            }
+            notificationTimer = Timer()
+            startTimer()
+            stop_timer.isEnabled = true
+            next_bus.isEnabled = false
             isCancelled = false
             countDown = timer(getTime(depTime), countDownInterval)
             countDown.start()
@@ -110,7 +103,7 @@ class CountdownActivity : AppCompatActivity() {
                 this,
                 0,
                 resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_NO_CREATE
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
@@ -159,7 +152,6 @@ class CountdownActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getTime(depTime: String): Long {
         departures.add(depTime)
         val departureTime = departures.get(depIndex)
@@ -185,8 +177,8 @@ class CountdownActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                text_view.text = "Unlucky, You missed your departure :D"
-                sendNotification("Unlucky, You missed your departure :D")
+                text_view.text = "UNLUCKY"
+                sendNotification("Unlucky, you missed your departure")
             }
         }
     }
@@ -250,8 +242,6 @@ class CountdownActivity : AppCompatActivity() {
         }
         return notificationString
     }
-
-
 
     private fun changeToSettings() {
         val intent = Intent(this, SettingsTestActivity::class.java)
