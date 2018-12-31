@@ -31,11 +31,17 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
         if (sharedPreferences.contains("notifications")) {
             switchButtonNotificatios.isChecked = sharedPreferences.getBoolean("notifications", true)
+            if (sharedPreferences.getBoolean("notifications", true)) {
+                switchButtonNotificatios.text = "Notifications ON"
+            } else {
+                switchButtonNotificatios.text = "Notifications OFF"
+            }
         } else {
             switchButtonNotificatios.isChecked = true
             val editor = sharedPreferences.edit()
             editor.putBoolean("notifications", true)
             editor.apply()
+            switchButtonNotificatios.text = "Notifications ON"
         }
 
         // Set an checked change listener for switch buttons
@@ -61,12 +67,14 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 val editor = sharedPreferences.edit()
                 editor.putBoolean("notifications", true)
                 editor.apply()
+                switchButtonNotificatios.text = "Notifications ON"
                 // Change the app background color
                 //linearLayout.setBackgroundColor(Color.DKGRAY)
             } else {
                 val editor = sharedPreferences.edit()
                 editor.putBoolean("notifications", false)
                 editor.apply()
+                switchButtonNotificatios.text = "Notifications OFF"
                 // Set the app background color to light gray
                 //linearLayout.setBackgroundColor(Color.LTGRAY)
             }
@@ -82,10 +90,18 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         //SPINNER:
         val spinner = Spinner(this)
         spinner.id = NEW_SPINNER_ID
+        spinner.elevation = 2.0F
+        spinner.setBackgroundColor(Color.parseColor("#ffffff"))
 
         val ll = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 
-        ll.setMargins(10, 40, 10, 10)
+        ll.setMargins(0, 0, 0, 0)
+        val textview = TextView(this)
+        textview.text = "Notification interval"
+//        textview.setTextColor(Color.parseColor("#000000"))
+//        textview.textSize = 16.0F
+//        textview.gravity = Gravity.CENTER
+        linearLayout.addView(textview)
         linearLayout.addView(spinner)
 
         val aa = ArrayAdapter(this@SettingsTestActivity, R.layout.spinner_right_aligned, notificationTime)
