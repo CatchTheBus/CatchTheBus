@@ -199,7 +199,9 @@ class CountdownActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 text_view.text = "UNLUCKY"
-                sendNotification("Unlucky, you missed your departure")
+                if (!isCancelled) {
+                    sendNotification("Unlucky, you missed your departure")
+                }
             }
         }
     }
