@@ -119,11 +119,12 @@ class CountdownActivity : AppCompatActivity() {
     private fun sendNotification(contentText: String) {
         val notificationID = 101
         val resultIntent = Intent(this, CountdownActivity::class.java)
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         val pendingIntent = PendingIntent.getActivity(
                 this,
                 0,
                 resultIntent,
-                PendingIntent.FLAG_NO_CREATE
+                PendingIntent.FLAG_UPDATE_CURRENT
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(

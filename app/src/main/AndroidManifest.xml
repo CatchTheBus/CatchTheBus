@@ -31,7 +31,7 @@
         <activity android:name=".activities.DeparturesActivity"/>
         <activity android:name=".activities.DestinationJourneyActivity"/>
         <activity android:name=".activities.TimeActivity"/>
-        <activity android:name=".activities.CountdownActivity"/>
+        <activity android:name=".activities.CountdownActivity" android:launchMode="singleTop"/>
         <activity android:name=".activities.SettingsTestActivity"/>
         <activity android:name=".activities.DestinationDepartureActivity">
         </activity>
