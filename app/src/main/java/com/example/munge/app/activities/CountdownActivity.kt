@@ -60,7 +60,18 @@ class CountdownActivity : AppCompatActivity() {
         var countDown = timer(getTime(depTime), countDownInterval)
         countDown.start()
 
-        val interval: Long = 10000
+        var interval: Long = 60000
+
+        val sharedPreferences = getSharedPreferences("com.example.munge.app.settings", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.contains("interval")) {
+            val milliSeconds = sharedPreferences.getInt("interval", 0) * 60000
+            val setting = milliSeconds.toLong()
+            Log.d("countdown", setting.toString())
+            interval = setting
+        } else {
+            Log.d("countdown", "not set")
+        }
 
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
             override fun run() {
@@ -73,7 +84,16 @@ class CountdownActivity : AppCompatActivity() {
             }
         }, interval, interval)
 
-        startTimer()
+        if (sharedPreferences.contains("notifications")) {
+            if (sharedPreferences.getBoolean("notifications", true)) {
+                startTimer()
+            }
+        } else {
+            startTimer()
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("notifications", true)
+            editor.apply()
+        }
 
         next_bus.isEnabled = false
 

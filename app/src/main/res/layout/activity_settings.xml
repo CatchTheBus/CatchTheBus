@@ -50,7 +50,7 @@
                 android:layout_width="277dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="25dp"
-                android:text="Gps on/off"
+                android:text="GPS OFF"
                 android:textColor="@android:color/black"
                 tools:ignore="HardcodedText"
                 android:hapticFeedbackEnabled="false"
@@ -65,17 +65,9 @@
                 android:textColor="@android:color/black"
                 tools:ignore="HardcodedText"
                 android:hapticFeedbackEnabled="false"
-                android:textSize="18sp"/>
+                android:textSize="18sp" android:checked="false"/>
 
         <!-- dropdown choices -->
-        <Spinner
-                android:id="@+id/notificationSpinner"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:textColor="@android:color/black"
-                android:text="Notification interval"
-                tools:ignore="HardcodedText"/>
 
     </LinearLayout>
 

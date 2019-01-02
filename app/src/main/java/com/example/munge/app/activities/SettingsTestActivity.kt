@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
@@ -20,11 +21,28 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPreferences = getSharedPreferences("com.example.munge.app.settings", Context.MODE_PRIVATE)
+
         setContentView(R.layout.activity_settings)
         //setting toolbar
         setSupportActionBar(findViewById(R.id.toolbar))
         //home navigation button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if (sharedPreferences.contains("notifications")) {
+            switchButtonNotificatios.isChecked = sharedPreferences.getBoolean("notifications", true)
+            if (sharedPreferences.getBoolean("notifications", true)) {
+                switchButtonNotificatios.text = "Notifications ON"
+            } else {
+                switchButtonNotificatios.text = "Notifications OFF"
+            }
+        } else {
+            switchButtonNotificatios.isChecked = true
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("notifications", true)
+            editor.apply()
+            switchButtonNotificatios.text = "Notifications ON"
+        }
 
         // Set an checked change listener for switch buttons
         switchButtonGps.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -46,9 +64,17 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         // Notification on off button
         switchButtonNotificatios.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("notifications", true)
+                editor.apply()
+                switchButtonNotificatios.text = "Notifications ON"
                 // Change the app background color
                 //linearLayout.setBackgroundColor(Color.DKGRAY)
             } else {
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("notifications", false)
+                editor.apply()
+                switchButtonNotificatios.text = "Notifications OFF"
                 // Set the app background color to light gray
                 //linearLayout.setBackgroundColor(Color.LTGRAY)
             }
@@ -57,25 +83,43 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         // Set a click listener for the button widget
         switchButtonNotificatios.setOnClickListener {
             // Change the switch button checked state on button click
-            switchButtonNotificatios.isChecked = if (switchButtonNotificatios.isChecked) false else true
+            // Unnecessary
+//            switchButtonNotificatios.isChecked = !switchButtonNotificatios.isChecked
         }
 
         //SPINNER:
         val spinner = Spinner(this)
         spinner.id = NEW_SPINNER_ID
+        spinner.elevation = 2.0F
+        spinner.setBackgroundColor(Color.parseColor("#ffffff"))
 
         val ll = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 
-        ll.setMargins(10, 40, 10, 10)
+        ll.setMargins(0, 0, 0, 0)
+        val textview = TextView(this)
+        textview.text = "Notification interval"
+//        textview.setTextColor(Color.parseColor("#000000"))
+//        textview.textSize = 16.0F
+//        textview.gravity = Gravity.CENTER
+        linearLayout.addView(textview)
         linearLayout.addView(spinner)
 
         val aa = ArrayAdapter(this@SettingsTestActivity, R.layout.spinner_right_aligned, notificationTime)
         aa.setDropDownViewResource(R.layout.spinner_right_aligned)
 
+        val intervalString: String
+        var settingPosition = 0
+
+        if (sharedPreferences.contains("interval")) {
+            val setting = sharedPreferences.getInt("interval", 0)
+            intervalString = "${setting} min"
+            settingPosition = notificationTime.indexOf(intervalString)
+        }
+
         with(spinner)
         {
             adapter = aa
-            setSelection(0, false)
+            setSelection(settingPosition, false)
             onItemSelectedListener = this@SettingsTestActivity
             layoutParams = ll
             prompt = "Select notification interval"
@@ -97,6 +141,12 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             1 -> showToast(this, "Notification interval: ${notificationTime[position]}")
             //else -> showToast(this, "Spinner 1 Position:${position} notification interval: ${notificationTime[position]}")
         }
+
+        val sharedPreferences = getSharedPreferences("com.example.munge.app.settings", Context.MODE_PRIVATE)
+        val intervalTime = notificationTime[position].replace(" min", "")
+        val editor = sharedPreferences.edit()
+        editor.putInt("interval", intervalTime.toInt())
+        editor.apply()
     }
 
     //Spinner: create messages for toastmessage
