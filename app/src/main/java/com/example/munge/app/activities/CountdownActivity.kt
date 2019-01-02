@@ -73,6 +73,10 @@ class CountdownActivity : AppCompatActivity() {
             Log.d("countdown", "not set")
         }
 
+        if (getTime(depTime) > 0) {
+            sendNotification(timeStringEven(getTime(depTime)))
+        }
+
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
             override fun run() {
                 if (getTime(depTime) > 0) {
@@ -119,11 +123,12 @@ class CountdownActivity : AppCompatActivity() {
     private fun sendNotification(contentText: String) {
         val notificationID = 101
         val resultIntent = Intent(this, CountdownActivity::class.java)
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         val pendingIntent = PendingIntent.getActivity(
                 this,
                 0,
                 resultIntent,
-                PendingIntent.FLAG_NO_CREATE
+                PendingIntent.FLAG_UPDATE_CURRENT
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
@@ -198,7 +203,9 @@ class CountdownActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 text_view.text = "UNLUCKY"
-                sendNotification("Unlucky, you missed your departure")
+                if (!isCancelled) {
+                    sendNotification("Unlucky, you missed your departure")
+                }
             }
         }
     }
