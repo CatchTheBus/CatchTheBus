@@ -45,7 +45,7 @@
             tools:context=".AppSettingsActivity">
 
         <!-- Slider switch buttons -->
-        <Switch
+        <!--<Switch
                 android:id="@+id/switchButtonGps"
                 android:layout_width="277dp"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:textColor="@android:color/black"
                 tools:ignore="HardcodedText"
                 android:hapticFeedbackEnabled="false"
-                android:textSize="18sp"/>
+                android:textSize="18sp"/>-->
 
         <Switch
                 android:id="@+id/switchButtonNotificatios"

@@ -27,13 +27,13 @@
         </activity>
         -->
 
-        <activity android:name=".activities.JourneyPlannerActivity"/>
-        <activity android:name=".activities.DeparturesActivity"/>
-        <activity android:name=".activities.DestinationJourneyActivity"/>
-        <activity android:name=".activities.TimeActivity"/>
-        <activity android:name=".activities.CountdownActivity" android:launchMode="singleTop"/>
-        <activity android:name=".activities.SettingsTestActivity"/>
-        <activity android:name=".activities.DestinationDepartureActivity">
+        <activity android:name=".activities.JourneyPlannerActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.DeparturesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.DestinationJourneyActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.TimeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.CountdownActivity" android:screenOrientation="portrait" android:launchMode="singleTop"/>
+        <activity android:name=".activities.SettingsTestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.DestinationDepartureActivity" android:screenOrientation="portrait">
         </activity>
     </application>
 

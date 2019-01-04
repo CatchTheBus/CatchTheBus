@@ -82,9 +82,7 @@ class DeparturesActivity : AppCompatActivity() {
         val formInput = findViewById<AutoCompleteTextView>(R.id.search_from_departure).text.toString()
         val formIdFrom = idsFrom[formInput]
 
-        if (!names.contains(formInput)) {
-            invalidResult = true
-        }
+        invalidResult = !names.contains(formInput)
 
         if (formInput.isNotEmpty() && !invalidResult) {
             val intent = Intent(this, DestinationDepartureActivity::class.java)
