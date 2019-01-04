@@ -10,6 +10,8 @@ import android.widget.TextView
 import com.example.munge.app.R
 import kotlinx.android.synthetic.main.activity_destination.*
 import org.json.JSONArray
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DestinationDepartureActivity : AppCompatActivity() {
 
@@ -45,9 +47,11 @@ class DestinationDepartureActivity : AppCompatActivity() {
             val depTime = data.getJSONObject(i)["JourneyDateTime"].toString()
             val to = data.getJSONObject(i)["Towards"].toString()
 
-            buses.add(name)
-            busTimes.add(depTime)
-            busDestinations.add(to)
+            if (getTime(depTime) > 0) {
+                buses.add(name)
+                busTimes.add(depTime)
+                busDestinations.add(to)
+            }
         }
 
 
@@ -94,5 +98,13 @@ class DestinationDepartureActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun getTime(depTime: String): Long {
+        val currentTime = Calendar.getInstance().getTime()
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val date = format.parse(depTime)
+        val millisInFuture = date.time - currentTime.time
+        return millisInFuture
     }
 }
