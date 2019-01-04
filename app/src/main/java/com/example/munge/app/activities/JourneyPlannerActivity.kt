@@ -121,9 +121,7 @@ class JourneyPlannerActivity : AppCompatActivity() {
         val formIdFrom = idsFrom[formInputFrom]
         val formIdTo = idsTo[formInputTo]
 
-        if (!names.contains(formInputFrom) && !names.contains(formInputTo)) {
-            invalidResult = true
-        }
+        invalidResult = !names.contains(formInputFrom) && !names.contains(formInputTo)
 
         if (formInputFrom.isNotEmpty() && formInputTo.isNotEmpty() && !invalidResult) {
             val intent = Intent(this, DestinationJourneyActivity::class.java)

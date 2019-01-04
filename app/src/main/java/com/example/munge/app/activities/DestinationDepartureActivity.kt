@@ -73,27 +73,27 @@ class DestinationDepartureActivity : AppCompatActivity() {
     }
 
 
-    //settings menu in action bar
+    /*//settings menu in action bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.my_menu,menu)
         return super.onCreateOptionsMenu(menu)
-    }
-    private fun changeToSettings() {
+    }*/
+    /*private fun changeToSettings() {
         //val intent = Intent(this, AppSettingsActivity::class.java)
         val intent = Intent(this, SettingsTestActivity::class.java)
         //startActivity(intent)
         intent.putExtra(INTENT_PREV_ACTIVITY, "destinationDeparture")
         //intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
         startActivity(intent)
-    }
+    }*/
 
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_settings -> {
+        /*R.id.action_settings -> {
             // move to settings
             changeToSettings()
             true
-        }
+        }*/
         android.R.id.home ->{
             when (intent.extras["prevActivity"].toString()) {
                 "departure" ->  startActivity(Intent(this, DeparturesActivity::class.java))

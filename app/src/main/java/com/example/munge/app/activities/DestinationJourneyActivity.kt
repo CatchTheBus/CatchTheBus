@@ -61,19 +61,26 @@ class DestinationJourneyActivity : AppCompatActivity() {
                         val item = routeLink.getJSONObject(x)
                         name = item.getJSONObject("Line")["Name"].toString()
                         depTime = item["DepDateTime"].toString()
+                        val trainNo = item.getJSONObject("Line")["TrainNo"].toString()
+                        val lineType = item.getJSONObject("Line")["LineTypeName"].toString()
+                        if (trainNo != "0") {
+                            name = "$name $trainNo"
+                        } else if (lineType.contains("buss", ignoreCase = true)) {
+                            name = "$lineType $name"
+                        }
                     }
                 }
             } else {
                 name = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["Name"].toString()
                 depTime = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink")["DepDateTime"].toString()
-            }
 
-            val trainNo = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["TrainNo"].toString()
-            val lineType = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["LineTypeName"].toString()
-            if (trainNo != "0") {
-                name = "$name $trainNo"
-            } else if (lineType.contains("buss", ignoreCase = true)) {
-                name = "$lineType $name"
+                val trainNo = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["TrainNo"].toString()
+                val lineType = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["LineTypeName"].toString()
+                if (trainNo != "0") {
+                    name = "$name $trainNo"
+                } else if (lineType.contains("buss", ignoreCase = true)) {
+                    name = "$lineType $name"
+                }
             }
 
             buses.add(name)
@@ -91,27 +98,27 @@ class DestinationJourneyActivity : AppCompatActivity() {
         bus_list.adapter = BusAdapter(buses, busDestinations, busTimes, information ,this, "journeys")
     }
 
-    //settings menu in action bar
+    /*//settings menu in action bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.my_menu,menu)
         return super.onCreateOptionsMenu(menu)
-    }
-    private fun changeToSettings() {
+    }*/
+    /*private fun changeToSettings() {
         //val intent = Intent(this, AppSettingsActivity::class.java)
         val intent = Intent(this, SettingsTestActivity::class.java)
         //startActivity(intent)
         intent.putExtra(INTENT_PREV_ACTIVITY, "destination")
         //intent.putExtra(INTENT_SEARCH, findViewById<TextInputEditText>(R.id.search_from).getText().toString())
         startActivity(intent)
-    }
+    }*/
 
     // actions on click menu items
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_settings -> {
+        /*R.id.action_settings -> {
             // move to settings
             changeToSettings()
             true
-        }
+        }*/
         android.R.id.home ->{
             when (intent.extras["prevActivity"].toString()) {
                 "journey" -> startActivity(Intent(this, JourneyPlannerActivity::class.java))

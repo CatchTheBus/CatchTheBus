@@ -44,7 +44,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             switchButtonNotificatios.text = "Notifications ON"
         }
 
-        // Set an checked change listener for switch buttons
+        /*// Set an checked change listener for switch buttons
         switchButtonGps.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 // Change the app background color
@@ -59,7 +59,7 @@ class SettingsTestActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         switchButtonGps.setOnClickListener {
             // Change the switch button checked state on button click
             switchButtonGps.isChecked = if (switchButtonGps.isChecked) false else true
-        }
+        }*/
 
         // Notification on off button
         switchButtonNotificatios.setOnCheckedChangeListener { buttonView, isChecked ->
