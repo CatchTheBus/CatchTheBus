@@ -82,10 +82,6 @@ class CountdownActivity : AppCompatActivity() {
             Log.d("countdown", "not set")
         }
 
-        if (getTime(depTime) > 0) {
-            sendNotification(timeStringEven(getTime(depTime)))
-        }
-
         fun startTimer() = notificationTimer.schedule(object : TimerTask() {
             override fun run() {
                 if (getTime(depTime) > 0) {
@@ -99,6 +95,9 @@ class CountdownActivity : AppCompatActivity() {
 
         if (sharedPreferences.contains("notifications")) {
             if (sharedPreferences.getBoolean("notifications", true)) {
+                if (getTime(depTime) > 0) {
+                    sendNotification(timeStringEven(getTime(depTime)))
+                }
                 startTimer()
             }
         } else {
