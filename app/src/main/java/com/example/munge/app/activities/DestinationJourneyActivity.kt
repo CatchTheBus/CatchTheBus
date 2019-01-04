@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -65,6 +66,14 @@ class DestinationJourneyActivity : AppCompatActivity() {
             } else {
                 name = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["Name"].toString()
                 depTime = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink")["DepDateTime"].toString()
+            }
+
+            val trainNo = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["TrainNo"].toString()
+            val lineType = data.getJSONObject(i).getJSONObject("RouteLinks").getJSONObject("RouteLink").getJSONObject("Line")["LineTypeName"].toString()
+            if (trainNo != "0") {
+                name = "$name $trainNo"
+            } else if (lineType.contains("buss", ignoreCase = true)) {
+                name = "$lineType $name"
             }
 
             buses.add(name)

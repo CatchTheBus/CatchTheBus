@@ -43,9 +43,17 @@ class DestinationDepartureActivity : AppCompatActivity() {
         val data = GetAPIData("destination_departure").execute(url).get()
 
         for (i in 0..(data.length() - 1)) {
-            val name = data.getJSONObject(i)["Name"].toString()
+            var name = data.getJSONObject(i)["Name"].toString()
             val depTime = data.getJSONObject(i)["JourneyDateTime"].toString()
             val to = data.getJSONObject(i)["Towards"].toString()
+            val lineType = data.getJSONObject(i)["LineTypeName"].toString()
+
+            val trainNo = data.getJSONObject(i)["TrainNo"].toString()
+            if (trainNo != "0") {
+                name = "$name $trainNo"
+            } else if (lineType.contains("buss", ignoreCase = true)) {
+                name = "$lineType $name"
+            }
 
             if (getTime(depTime) > 0) {
                 buses.add(name)
