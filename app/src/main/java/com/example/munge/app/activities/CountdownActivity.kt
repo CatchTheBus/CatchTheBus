@@ -51,6 +51,15 @@ class CountdownActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.countdown_header).text = intent.extras["bus"].toString()
 
         val depTime = intent.extras["time"].toString()
+        val hashMapObject = intent.getSerializableExtra("information") as HashMap<String, String>
+
+        if (hashMapObject["searchFrom"] == null) {
+            findViewById<TextView>(R.id.location).text = hashMapObject["search"] + " → " + hashMapObject["searchTo"]
+        } else {
+            findViewById<TextView>(R.id.location).text = hashMapObject["searchFrom"] + " → " + hashMapObject["searchTo"]
+        }
+
+        isCancelled = false
 
         notificationManager =
                 getSystemService(
@@ -212,8 +221,6 @@ class CountdownActivity : AppCompatActivity() {
 
     private fun timeString(millisUntilFinished:Long):String{
         var millisUntilFinished:Long = millisUntilFinished
-//        val days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished)
-//        millisUntilFinished -= TimeUnit.DAYS.toMillis(days)
 
         val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished)
         millisUntilFinished -= TimeUnit.HOURS.toMillis(hours)
@@ -324,10 +331,12 @@ class CountdownActivity : AppCompatActivity() {
         notificationTimer.cancel()
         notificationTimer.purge()
         notificationManager?.cancelAll()
+        isCancelled = true
     }
 
     override fun onDestroy() {
         super.onDestroy()
         notificationManager?.cancelAll()
+        isCancelled = true
     }
 }

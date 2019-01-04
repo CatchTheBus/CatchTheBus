@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.munge.app.R
 import kotlinx.android.synthetic.main.bus_list_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 private val INTENT_PREV_ACTIVITY = "prevActivity"
 private val INTENT_BUS = "bus"
@@ -31,12 +34,14 @@ class BusAdapter(val items : ArrayList<String>, val items2 : ArrayList<String>, 
         holder?.tvItems?.text = items.get(position)
         holder?.tvItems2?.text = items2.get(position)
         holder?.tvItems3?.text = items3.get(position)
-        holder?.tvItems?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), holder.tvItems3.text.toString()) }
-        holder?.tvItems2?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), holder.tvItems3.text.toString()) }
-        holder?.tvItems3?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), holder.tvItems3.text.toString()) }
+        val timeString = holder?.tvItems3?.text.toString()
+        holder?.tvItems?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString, holder.tvItems2?.text.toString()) }
+        holder?.tvItems2?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString, holder.tvItems2?.text.toString()) }
+        holder?.tvItems3?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString, holder.tvItems2?.text.toString()) }
+        holder?.tvItems3?.text = timeStringEven(getTime(holder?.tvItems3?.text.toString()))
     }
 
-    fun changeToCountdown(busLine: String, depTime: String) {
+    fun changeToCountdown(busLine: String, depTime: String, destination: String) {
         if (prevActivity == "journeys") {
             val intent = Intent(context, CountdownActivity::class.java)
             intent.putExtra(INTENT_PREV_ACTIVITY, "journeys")
@@ -49,9 +54,55 @@ class BusAdapter(val items : ArrayList<String>, val items2 : ArrayList<String>, 
             intent.putExtra(INTENT_PREV_ACTIVITY, "departures")
             intent.putExtra(INTENT_BUS, busLine)
             intent.putExtra(INTENT_TIME, depTime)
+            information["searchTo"] = destination
             intent.putExtra(INTENT_INFORMATION, information)
             context.startActivity(intent)
         }
+    }
+
+    private fun getTime(depTime: String): Long {
+        val currentTime = Calendar.getInstance().getTime()
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val date = format.parse(depTime)
+        val millisInFuture = date.time - currentTime.time
+        return millisInFuture
+    }
+
+    private fun timeStringEven(millisUntilFinished:Long):String{
+        val millisTotal = millisUntilFinished
+        var millisUntilFinished:Long = millisUntilFinished
+
+        val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished)
+        millisUntilFinished -= TimeUnit.HOURS.toMillis(hours)
+
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
+        millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes)
+
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
+        var notificationString = ""
+
+        if (millisTotal > 0) {
+            if (millisTotal > 3600000) {
+                notificationString = String.format(
+                        Locale.getDefault(),
+                        "%2d h %2d min",
+                        hours, minutes
+                )
+            } else if (millisTotal > 60000) {
+                notificationString = String.format(
+                        Locale.getDefault(),
+                        "%2d min",
+                        minutes
+                )
+            } else {
+                notificationString = String.format(
+                        Locale.getDefault(),
+                        "< 1 min",
+                        seconds
+                )
+            }
+        }
+        return notificationString
     }
 }
 
