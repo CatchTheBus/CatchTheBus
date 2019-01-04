@@ -10,9 +10,11 @@ import android.location.Location
 import android.location.LocationManager
 import android.media.audiofx.BassBoost
 import android.os.Bundle
+import android.os.Looper
 import android.support.multidex.MultiDex
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.example.munge.app.R
@@ -26,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_departures.*
 
 
 
-class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+class GpsActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private val TAG = "GpsActivity"
     private lateinit var mGoogleApiClient: GoogleApiClient
@@ -34,7 +36,7 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
     lateinit var mLocation: Location
     private var mLocationRequest: LocationRequest? = null
     private val listener: com.google.android.gms.location.LocationListener? = null
-    //private val UPDATE_INTERVAL = (2 * 1000).toLong()  /* 10 secs */
+    private val UPDATE_INTERVAL = (2 * 1000).toLong()  /* 10 secs */
     private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
 
     lateinit var locationManager: LocationManager
@@ -70,12 +72,16 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
         Log.i(TAG, "Connection failed. Error: " + connectionResult.errorCode)
     }
 
+    /* sends coordinates to latitude and longitude as a string*/
     override fun onLocationChanged(location: Location) {
 
+        /* replace with the variable that recieves the coordinates */
+        /*
         val msg = "Updated Location: Latitude " + location.longitude.toString() + location.longitude
         txt_latitude.text = location.latitude.toString()
         txt_longitude.text = location.longitude.toString()
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        */
 
     }
 
@@ -89,6 +95,7 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
 
         //Log.d("hej", "munge")
 
+        //gets the last known location and sends to latitude and longitude variables.
         val fusedLocationProviderClient :
                 FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationProviderClient.lastLocation
@@ -97,18 +104,18 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
                     if (location != null) {
                         // Logic to handle location object
                         this.mLocation = location
+                        /*
                         txt_latitude.text = this.mLocation.latitude.toString()
                         Log.d("hej", location.toString())
                         txt_longitude.text = this.mLocation.longitude.toString()
                         print(txt_longitude.text)
+                        */
                     }
                 }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
-        //setContentView(R.layout.activity_departures)
 
         MultiDex.install(this)
 
@@ -135,6 +142,7 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 
+    //alert message if gps is off
     /*
     private fun showAlert() {
     val dialog = AlertDialog.Builder(this)
@@ -149,6 +157,7 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
     }
     */
 
+    //automatic location updating, continuously using the gps
     /*
     protected fun startLocationUpdates() {
 
@@ -162,5 +171,6 @@ class GpsActivity : AppCompatPreferenceActivity(), GoogleApiClient.ConnectionCal
         FusedLocationProviderClient(this).requestLocationUpdates(mGoogleApiClient,
                 mLocationCallback, this)
     }
-    */
+*/
+
 }
