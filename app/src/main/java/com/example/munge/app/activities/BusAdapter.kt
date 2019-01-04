@@ -35,13 +35,13 @@ class BusAdapter(val items : ArrayList<String>, val items2 : ArrayList<String>, 
         holder?.tvItems2?.text = items2.get(position)
         holder?.tvItems3?.text = items3.get(position)
         val timeString = holder?.tvItems3?.text.toString()
-        holder?.tvItems?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString) }
-        holder?.tvItems2?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString) }
-        holder?.tvItems3?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString) }
+        holder?.tvItems?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString, holder.tvItems2?.text.toString()) }
+        holder?.tvItems2?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString, holder.tvItems2?.text.toString()) }
+        holder?.tvItems3?.setOnClickListener { changeToCountdown(holder.tvItems?.text.toString(), timeString, holder.tvItems2?.text.toString()) }
         holder?.tvItems3?.text = timeStringEven(getTime(holder?.tvItems3?.text.toString()))
     }
 
-    fun changeToCountdown(busLine: String, depTime: String) {
+    fun changeToCountdown(busLine: String, depTime: String, destination: String) {
         if (prevActivity == "journeys") {
             val intent = Intent(context, CountdownActivity::class.java)
             intent.putExtra(INTENT_PREV_ACTIVITY, "journeys")
@@ -54,6 +54,7 @@ class BusAdapter(val items : ArrayList<String>, val items2 : ArrayList<String>, 
             intent.putExtra(INTENT_PREV_ACTIVITY, "departures")
             intent.putExtra(INTENT_BUS, busLine)
             intent.putExtra(INTENT_TIME, depTime)
+            information["searchTo"] = destination
             intent.putExtra(INTENT_INFORMATION, information)
             context.startActivity(intent)
         }

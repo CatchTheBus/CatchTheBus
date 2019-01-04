@@ -51,6 +51,14 @@ class CountdownActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.countdown_header).text = intent.extras["bus"].toString()
 
         val depTime = intent.extras["time"].toString()
+        val hashMapObject = intent.getSerializableExtra("information") as HashMap<String, String>
+
+        if (hashMapObject["searchFrom"] == null) {
+            findViewById<TextView>(R.id.location).text = hashMapObject["search"] + " → " + hashMapObject["searchTo"]
+        } else {
+            findViewById<TextView>(R.id.location).text = hashMapObject["searchFrom"] + " → " + hashMapObject["searchTo"]
+        }
+
         isCancelled = false
 
         notificationManager =

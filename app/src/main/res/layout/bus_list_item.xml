@@ -17,7 +17,7 @@
             <TextView
                     android:id="@+id/bus_to"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textSize="14sp"
                     android:textColor="@android:color/black"
                     android:text="To: Stockholm" android:visibility="visible"
@@ -25,7 +25,7 @@
             <TextView
                     android:id="@+id/bus_ttd"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textSize="14sp"
                     android:textColor="@android:color/black"
                     android:text="TTD: 5 min" android:visibility="visible"

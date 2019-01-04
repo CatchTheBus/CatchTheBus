@@ -34,7 +34,6 @@ class DestinationDepartureActivity : AppCompatActivity() {
 
         val searchFromId = intent.extras["search_from_id_departures"]
 
-
         information["search_from_id_departures"] = searchFromId.toString()
         information["search"] = intent.extras["search"].toString()
 
