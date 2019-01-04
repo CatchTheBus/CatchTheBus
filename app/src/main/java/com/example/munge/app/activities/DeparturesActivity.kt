@@ -29,8 +29,8 @@ class DeparturesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_departures)
 
         //gps button
-        val imageButton = findViewById<ImageButton>(R.id.imageButton)
-        imageButton?.setOnClickListener { Toast.makeText(this, R.string.image_button_clicked, Toast.LENGTH_SHORT).show() }
+//        val imageButton = findViewById<ImageButton>(R.id.imageButton)
+//        imageButton?.setOnClickListener { Toast.makeText(this, R.string.image_button_clicked, Toast.LENGTH_SHORT).show() }
 
         setSupportActionBar(findViewById(R.id.toolbar))
         //home navigation
